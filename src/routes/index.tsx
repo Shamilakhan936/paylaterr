@@ -72,8 +72,8 @@ export function AppRoutes() {
         <Route path="/company/faq" element={<FAQ />} />
         <Route path="/company/case-studies" element={<CaseStudies />} />
 
-        {/* <Route path="/legal/privacy" element={<Privacy />} />
-        <Route path="/legal/terms" element={<Terms />} />
+        <Route path="/legal/privacy" element={<Privacy />} />
+        {/* <Route path="/legal/terms" element={<Terms />} />
         <Route path="/legal/security" element={<Security />} />
         <Route path="/legal/compliance" element={<Compliance />} /> */}
 
