@@ -18,30 +18,22 @@ import {
   XCircle,
   Clock,
   ArrowRight,
-  RefreshCw
+  RefreshCw,
+  Loader2
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { useQuery } from "@tanstack/react-query";
 
 interface LogEntry {
   id: string;
-  timestamp: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  product: string;
   endpoint: string;
-  status: number;
-  duration: number;
-  ip: string;
-  userAgent: string;
+  method: string;
+  status_code: number;
+  response_time_ms: number;
+  request_timestamp: string;
 }
-
-const mockLogs: LogEntry[] = [
-  { id: "1", timestamp: "2024-01-20 14:32:45", method: "POST", endpoint: "/v1/bnpl/bills/create", status: 200, duration: 145, ip: "192.168.1.1", userAgent: "Node.js/18.0" },
-  { id: "2", timestamp: "2024-01-20 14:32:40", method: "GET", endpoint: "/v1/spendnest/categories", status: 200, duration: 89, ip: "192.168.1.1", userAgent: "Node.js/18.0" },
-  { id: "3", timestamp: "2024-01-20 14:32:35", method: "POST", endpoint: "/v1/earlypay/advance", status: 201, duration: 234, ip: "192.168.1.2", userAgent: "Python/3.9" },
-  { id: "4", timestamp: "2024-01-20 14:32:30", method: "GET", endpoint: "/v1/rewards/balance/usr_123", status: 404, duration: 45, ip: "192.168.1.1", userAgent: "Node.js/18.0" },
-  { id: "5", timestamp: "2024-01-20 14:32:25", method: "POST", endpoint: "/v1/travel/book", status: 500, duration: 1234, ip: "192.168.1.3", userAgent: "Go/1.20" },
-  { id: "6", timestamp: "2024-01-20 14:32:20", method: "GET", endpoint: "/v1/autofloat/forecast/usr_456", status: 200, duration: 178, ip: "192.168.1.1", userAgent: "Node.js/18.0" },
-  { id: "7", timestamp: "2024-01-20 14:32:15", method: "DELETE", endpoint: "/v1/bnpl/bills/bnpl_789", status: 204, duration: 67, ip: "192.168.1.2", userAgent: "Python/3.9" },
-  { id: "8", timestamp: "2024-01-20 14:32:10", method: "POST", endpoint: "/v1/latefees/protect", status: 200, duration: 156, ip: "192.168.1.1", userAgent: "Node.js/18.0" },
-];
 
 const methodColors: Record<string, string> = {
   GET: "bg-primary/20 text-primary",
@@ -51,19 +43,44 @@ const methodColors: Record<string, string> = {
 };
 
 const ActivityLogs = () => {
-  const [logs] = useState<LogEntry[]>(mockLogs);
+  const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [methodFilter, setMethodFilter] = useState("all");
 
+  const { data: logs = [], isLoading, refetch } = useQuery({
+    queryKey: ["activity-logs"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("api_request_logs")
+        .select("*")
+        .order("request_timestamp", { ascending: false })
+        .limit(100);
+      if (error) throw error;
+      return data as LogEntry[];
+    },
+    enabled: !!user,
+  });
+
   const filteredLogs = logs.filter(log => {
-    const matchesSearch = log.endpoint.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch = log.endpoint.toLowerCase().includes(search.toLowerCase()) ||
+      log.product.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter === "all" || 
-      (statusFilter === "success" && log.status < 400) ||
-      (statusFilter === "error" && log.status >= 400);
+      (statusFilter === "success" && (log.status_code || 0) < 400) ||
+      (statusFilter === "error" && (log.status_code || 0) >= 400);
     const matchesMethod = methodFilter === "all" || log.method === methodFilter;
     return matchesSearch && matchesStatus && matchesMethod;
   });
+
+  const successRate = logs.length > 0
+    ? ((logs.filter(l => (l.status_code || 0) < 400).length / logs.length) * 100).toFixed(1)
+    : "0";
+
+  const avgLatency = logs.length > 0
+    ? Math.round(logs.reduce((sum, l) => sum + (l.response_time_ms || 0), 0) / logs.length)
+    : 0;
+
+  const errors24h = logs.filter(l => (l.status_code || 0) >= 400).length;
 
   const getStatusIcon = (status: number) => {
     if (status < 300) return <CheckCircle className="w-4 h-4 text-primary" />;
@@ -81,19 +98,16 @@ const ActivityLogs = () => {
 
   return (
     <div className="p-6 lg:p-8">
-      {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Activity Logs</h1>
           <p className="text-muted-foreground mt-1">Monitor your API requests in real-time</p>
         </div>
-        <Button variant="outline" className="mt-4 lg:mt-0">
+        <Button variant="outline" className="mt-4 lg:mt-0" onClick={() => refetch()}>
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
         </Button>
       </div>
-
-      {/* Stats */}
       <div className="grid sm:grid-cols-4 gap-4 mb-8">
         <Card className="p-4 bg-card border-border flex items-center gap-4">
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -101,7 +115,7 @@ const ActivityLogs = () => {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Total Requests</p>
-            <p className="text-xl font-bold text-foreground">12,847</p>
+            <p className="text-xl font-bold text-foreground">{logs.length}</p>
           </div>
         </Card>
         <Card className="p-4 bg-card border-border flex items-center gap-4">
@@ -110,7 +124,7 @@ const ActivityLogs = () => {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Success Rate</p>
-            <p className="text-xl font-bold text-foreground">99.2%</p>
+            <p className="text-xl font-bold text-foreground">{successRate}%</p>
           </div>
         </Card>
         <Card className="p-4 bg-card border-border flex items-center gap-4">
@@ -119,7 +133,7 @@ const ActivityLogs = () => {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Avg Latency</p>
-            <p className="text-xl font-bold text-foreground">142ms</p>
+            <p className="text-xl font-bold text-foreground">{avgLatency}ms</p>
           </div>
         </Card>
         <Card className="p-4 bg-card border-border flex items-center gap-4">
@@ -127,19 +141,17 @@ const ActivityLogs = () => {
             <XCircle className="w-5 h-5 text-destructive" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Errors (24h)</p>
-            <p className="text-xl font-bold text-foreground">23</p>
+            <p className="text-sm text-muted-foreground">Errors</p>
+            <p className="text-xl font-bold text-foreground">{errors24h}</p>
           </div>
         </Card>
       </div>
-
-      {/* Filters */}
       <Card className="p-4 bg-card border-border mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input 
-              placeholder="Search endpoints..." 
+              placeholder="Search endpoints or products..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-10 bg-secondary border-border"
@@ -172,62 +184,70 @@ const ActivityLogs = () => {
           </div>
         </div>
       </Card>
-
-      {/* Logs Table */}
       <Card className="bg-card border-border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-secondary/50">
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Status</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Method</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Endpoint</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground hidden md:table-cell">Duration</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground hidden lg:table-cell">IP Address</th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">Time</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {filteredLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-secondary/30 transition-colors cursor-pointer">
-                  <td className="p-4">
-                    <div className="flex items-center gap-2">
-                      {getStatusIcon(log.status)}
-                      <span className={`font-mono text-sm ${getStatusColor(log.status)}`}>
-                        {log.status}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <Badge className={`${methodColors[log.method]} font-mono text-xs`}>
-                      {log.method}
-                    </Badge>
-                  </td>
-                  <td className="p-4">
-                    <code className="text-sm font-mono text-foreground">{log.endpoint}</code>
-                  </td>
-                  <td className="p-4 hidden md:table-cell">
-                    <span className={`text-sm ${log.duration > 500 ? 'text-destructive' : 'text-muted-foreground'}`}>
-                      {log.duration}ms
-                    </span>
-                  </td>
-                  <td className="p-4 hidden lg:table-cell">
-                    <span className="text-sm text-muted-foreground font-mono">{log.ip}</span>
-                  </td>
-                  <td className="p-4">
-                    <span className="text-sm text-muted-foreground">{log.timestamp.split(' ')[1]}</span>
-                  </td>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          </div>
+        ) : filteredLogs.length === 0 ? (
+          <div className="text-center py-12">
+            <Activity className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
+            <p className="text-muted-foreground">
+              {logs.length === 0 ? "No API requests yet. Try the API Playground!" : "No matching logs."}
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border bg-secondary/50">
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground">Status</th>
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground">Method</th>
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground">Product</th>
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground">Endpoint</th>
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground hidden md:table-cell">Duration</th>
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground">Time</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {filteredLogs.map((log) => (
+                  <tr key={log.id} className="hover:bg-secondary/30 transition-colors">
+                    <td className="p-4">
+                      <div className="flex items-center gap-2">
+                        {getStatusIcon(log.status_code || 0)}
+                        <span className={`font-mono text-sm ${getStatusColor(log.status_code || 0)}`}>
+                          {log.status_code}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <Badge className={`${methodColors[log.method] || "bg-secondary text-foreground"} font-mono text-xs`}>
+                        {log.method}
+                      </Badge>
+                    </td>
+                    <td className="p-4">
+                      <span className="text-sm text-foreground">{log.product}</span>
+                    </td>
+                    <td className="p-4">
+                      <code className="text-sm font-mono text-foreground">{log.endpoint}</code>
+                    </td>
+                    <td className="p-4 hidden md:table-cell">
+                      <span className={`text-sm ${(log.response_time_ms || 0) > 500 ? "text-destructive" : "text-muted-foreground"}`}>
+                        {log.response_time_ms}ms
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      <span className="text-sm text-muted-foreground">
+                        {new Date(log.request_timestamp).toLocaleTimeString()}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </Card>
-
-      {/* Load More */}
-      <div className="flex justify-center mt-6">
-        <Button variant="outline">Load More</Button>
-      </div>
     </div>
   );
 };

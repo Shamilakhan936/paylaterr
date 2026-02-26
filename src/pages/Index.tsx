@@ -1,10 +1,5 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/landing/Hero";
-import { TrustedBy } from "@/components/landing/TrustedBy";
-import { Features } from "@/components/landing/Features";
-import { CodePreview } from "@/components/landing/CodePreview";
-import { CTA } from "@/components/landing/CTA";
+import { Header, Footer } from "@/components/layout";
+import { Hero, TrustedBy, Features, CodePreview, CTA } from "@/components/landing";
 
 export default function Index() {
   return (

@@ -296,12 +296,12 @@ const productData: Record<string, {
   },
   "travel": {
     id: "travel",
-    name: "Paylaterr Travel",
+    name: "Rail Layer Travel",
     description: "Travel financing solution for flights, hotels, and vacation packages with flexible payment terms.",
     icon: Plane,
     color: "bg-accent/10 text-accent",
     status: "live",
-    overview: "Paylaterr Travel enables customers to book flights, hotels, and vacation packages with flexible payment plans up to 24 months. Integrate with your travel platform to increase booking conversions and average order value.",
+    overview: "Rail Layer Travel enables customers to book flights, hotels, and vacation packages with flexible payment plans up to 24 months. Integrate with your travel platform to increase booking conversions and average order value.",
     useCases: [
       "Finance flight bookings",
       "Offer hotel payment plans",
@@ -371,7 +371,6 @@ const ProductDocumentation = () => {
 
   return (
     <div className="p-6 lg:p-8">
-      {/* Back Button */}
       <Link 
         to="/dashboard/products" 
         className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
@@ -379,8 +378,6 @@ const ProductDocumentation = () => {
         <ArrowLeft className="w-4 h-4" />
         Back to Products
       </Link>
-
-      {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-8">
         <div className="flex items-start gap-4">
           <div className={`w-14 h-14 rounded-xl ${product.color} flex items-center justify-center`}>
@@ -409,8 +406,6 @@ const ProductDocumentation = () => {
           </Button>
         </div>
       </div>
-
-      {/* Quick Stats */}
       <div className="grid sm:grid-cols-3 gap-4 mb-8">
         <Card className="p-4 bg-card border-border">
           <p className="text-sm text-muted-foreground mb-1">Rate Limit</p>
@@ -425,8 +420,6 @@ const ProductDocumentation = () => {
           <p className="font-semibold text-foreground">{product.endpoints.length} available</p>
         </Card>
       </div>
-
-      {/* Tabs */}
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="bg-secondary">
           <TabsTrigger value="overview">Overview</TabsTrigger>

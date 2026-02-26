@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,7 @@ const caseStudies = [
     industry: "Digital Banking",
     product: "BNPL Bills + SpendNest",
     title: "How NeoBank Finance increased customer retention by 45%",
-    summary: "By integrating Paylaterr's BNPL Bills and SpendNest APIs, NeoBank Finance transformed their mobile banking app into a comprehensive financial wellness platform.",
+    summary: "By integrating Rail Layer's BNPL Bills and SpendNest APIs, NeoBank Finance transformed their mobile banking app into a comprehensive financial wellness platform.",
     challenge: "NeoBank Finance was losing customers to competitors offering more flexible payment options. Their churn rate was 8% monthly, significantly above industry average.",
     solution: "Integrated BNPL Bills to allow customers to split utility and rent payments. Combined with SpendNest for real-time spending insights and budgeting recommendations.",
     results: [
@@ -30,7 +30,7 @@ const caseStudies = [
       { metric: "4 weeks", label: "Time to launch" },
     ],
     quote: {
-      text: "Paylaterr's APIs were incredibly easy to integrate. Within a month, we had a fully functional BNPL solution that our customers love.",
+      text: "Rail Layer's APIs were incredibly easy to integrate. Within a month, we had a fully functional BNPL solution that our customers love.",
       author: "Sarah Chen",
       role: "CTO, NeoBank Finance"
     },
@@ -43,7 +43,7 @@ const caseStudies = [
     industry: "Property Management",
     product: "BNPL Bills + LateFees Protection",
     title: "RentFlow reduced late payments by 67% with flexible rent options",
-    summary: "RentFlow, a property management platform serving 50,000+ units, used Paylaterr to offer tenants flexible rent payment options while protecting landlords from late fees.",
+    summary: "RentFlow, a property management platform serving 50,000+ units, used Rail Layer to offer tenants flexible rent payment options while protecting landlords from late fees.",
     challenge: "25% of tenants were paying rent late each month, causing cash flow issues for property owners and straining tenant relationships.",
     solution: "Implemented BNPL Bills for rent installments and LateFees Protection to automatically remind tenants and prevent late payments.",
     results: [
@@ -53,7 +53,7 @@ const caseStudies = [
       { metric: "15K+", label: "Active payment plans" },
     ],
     quote: {
-      text: "Our landlords are happier with consistent cash flow, and tenants appreciate the flexibility. It's a win-win powered by Paylaterr.",
+      text: "Our landlords are happier with consistent cash flow, and tenants appreciate the flexibility. It's a win-win powered by Rail Layer.",
       author: "Michael Torres",
       role: "CEO, RentFlow"
     },
@@ -87,11 +87,11 @@ const caseStudies = [
     company: "TripMaster",
     logo: "TM",
     industry: "Travel",
-    product: "Paylaterr Travel",
+    product: "Rail Layer Travel",
     title: "TripMaster increased bookings by 52% with flexible travel financing",
-    summary: "TripMaster, an online travel agency, integrated Paylaterr Travel to offer customers the ability to book now and pay over time, dramatically increasing conversion rates.",
+    summary: "TripMaster, an online travel agency, integrated Rail Layer Travel to offer customers the ability to book now and pay over time, dramatically increasing conversion rates.",
     challenge: "Cart abandonment was 73% at checkout, primarily due to high upfront costs for vacation packages. Average booking value was declining.",
-    solution: "Added Paylaterr Travel financing option at checkout, allowing customers to split travel costs into 6-24 monthly payments with 0% APR.",
+    solution: "Added Rail Layer Travel financing option at checkout, allowing customers to split travel costs into 6-24 monthly payments with 0% APR.",
     results: [
       { metric: "52%", label: "More bookings" },
       { metric: "35%", label: "Higher avg. order" },
@@ -99,7 +99,7 @@ const caseStudies = [
       { metric: "$8M", label: "Financed in Year 1" },
     ],
     quote: {
-      text: "Adding Paylaterr Travel was the single biggest conversion improvement we've made. Customers book bigger trips because they can spread the cost.",
+      text: "Adding Rail Layer Travel was the single biggest conversion improvement we've made. Customers book bigger trips because they can spread the cost.",
       author: "David Park",
       role: "Head of Product, TripMaster"
     },
@@ -111,20 +111,15 @@ const CaseStudies = () => {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 bg-gradient-mesh">
-          <div className="container mx-auto px-6 text-center">
-            <Badge className="mb-4">Success Stories</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Case Studies
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              See how companies are using Paylaterr to transform their businesses
-            </p>
-          </div>
-        </section>
+        <PageHero
+          title="Case Studies"
+          leading={<Badge className="mb-4">Success Stories</Badge>}
+        >
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            See how companies are using Rail Layer to transform their businesses
+          </p>
+        </PageHero>
 
-        {/* Stats */}
         <section className="py-12 border-b border-border">
           <div className="container mx-auto px-6">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
@@ -160,7 +155,6 @@ const CaseStudies = () => {
           </div>
         </section>
 
-        {/* Case Studies Grid */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="space-y-12">
@@ -169,8 +163,7 @@ const CaseStudies = () => {
                   key={study.id} 
                   className="bg-card border-border overflow-hidden"
                 >
-                  <div className={`grid lg:grid-cols-2 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                    {/* Content */}
+                  <div className={`grid lg:grid-cols-2 ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
                     <div className="p-8 lg:p-10">
                       <div className="flex items-center gap-3 mb-4">
                         <div className={`w-12 h-12 rounded-lg ${study.color} flex items-center justify-center`}>
@@ -202,7 +195,6 @@ const CaseStudies = () => {
                       </Button>
                     </div>
 
-                    {/* Quote Section */}
                     <div className={`${study.color}/10 p-8 lg:p-10 flex flex-col justify-center`}>
                       <Quote className={`w-10 h-10 ${study.color === 'bg-primary' ? 'text-primary' : 'text-accent'} mb-4`} />
                       <blockquote className="text-lg text-foreground mb-6 leading-relaxed">
@@ -220,14 +212,13 @@ const CaseStudies = () => {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-16 bg-gradient-card">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-2xl font-bold text-foreground mb-4">
               Ready to write your success story?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Join hundreds of companies using Paylaterr to transform their payment experiences
+              Join hundreds of companies using Rail Layer to transform their payment experiences
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button variant="outline" asChild>

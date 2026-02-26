@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,7 @@ const steps = [
   {
     number: 1,
     title: "Create your account",
-    description: "Sign up for a free Paylaterr account to access the developer dashboard.",
+    description: "Sign up for a free Rail Layer account to access the developer dashboard.",
     action: { label: "Sign Up Free", href: "/partner-signup" }
   },
   {
@@ -31,33 +31,33 @@ const steps = [
 sk_sandbox_4a8b9c0d1e2f3g4h5i6j7k8l9m0n
 
 # Base URL for sandbox
-https://sandbox.api.paylaterr.com`
+https://sandbox.api.raillayer.com`
   },
   {
     number: 3,
     title: "Install the SDK",
-    description: "Install the Paylaterr SDK for your preferred programming language.",
+    description: "Install the Rail Layer SDK for your preferred programming language.",
     code: `# Node.js
-npm install @paylaterr/node
+npm install @raillayer/node
 
 # Python
-pip install paylaterr
+pip install raillayer
 
 # Ruby
-gem install paylaterr`
+gem install raillayer`
   },
   {
     number: 4,
     title: "Make your first API call",
     description: "Create a simple payment plan to verify your integration is working.",
-    code: `import Paylaterr from '@paylaterr/node';
+    code: `import RailLayer from '@raillayer/node';
 
-const paylaterr = new Paylaterr({
+const raillayer = new RailLayer({
   apiKey: 'sk_sandbox_...',
 });
 
 // Create a BNPL bill payment plan
-const plan = await paylaterr.bnpl.bills.create({
+const plan = await raillayer.bnpl.bills.create({
   user_id: 'usr_123abc',
   bill_type: 'utility',
   bill_amount: 450.00,
@@ -72,7 +72,7 @@ console.log('Plan created:', plan.id);`
     title: "Handle webhooks",
     description: "Set up webhook endpoints to receive real-time notifications about payment events.",
     code: `// Express.js webhook handler
-app.post('/webhooks/paylaterr', (req, res) => {
+app.post('/webhooks/raillayer', (req, res) => {
   const event = req.body;
   
   switch (event.type) {
@@ -108,31 +108,23 @@ const Quickstart = () => {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 bg-gradient-mesh">
-          <div className="container mx-auto px-6 text-center">
-            <Badge className="mb-4">Developer Guide</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Quickstart Guide
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Get up and running with the Paylaterr API in 5 minutes
-            </p>
-            <div className="flex items-center justify-center gap-4">
-              <Button variant="hero" asChild>
-                <Link to="/partner-signup">
-                  Start Building
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link to="/developers/api-reference">API Reference</Link>
-              </Button>
-            </div>
+        <PageHero title="Quickstart Guide" leading={<Badge className="mb-4">Developer Guide</Badge>}>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            Get up and running with the Rail Layer API in 5 minutes
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <Button variant="hero" asChild>
+              <Link to="/partner-signup">
+                Start Building
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/developers/api-reference">API Reference</Link>
+            </Button>
           </div>
-        </section>
+        </PageHero>
 
-        {/* Features */}
         <section className="py-12 border-b border-border">
           <div className="container mx-auto px-6">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -151,24 +143,18 @@ const Quickstart = () => {
           </div>
         </section>
 
-        {/* Steps */}
         <section className="py-16">
           <div className="container mx-auto px-6 max-w-4xl">
             <div className="space-y-12">
               {steps.map((step, index) => (
                 <div key={step.number} className="relative">
-                  {/* Connector line */}
                   {index < steps.length - 1 && (
                     <div className="absolute left-6 top-14 w-0.5 h-full bg-border -z-10" />
                   )}
-                  
                   <div className="flex gap-6">
-                    {/* Step number */}
                     <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
                       <span className="text-primary-foreground font-bold">{step.number}</span>
                     </div>
-                    
-                    {/* Content */}
                     <div className="flex-1 pb-8">
                       <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
                       <p className="text-muted-foreground mb-4">{step.description}</p>
@@ -214,7 +200,6 @@ const Quickstart = () => {
           </div>
         </section>
 
-        {/* Next Steps */}
         <section className="py-16 bg-gradient-card">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-2xl font-bold text-foreground mb-4">You're all set!</h2>

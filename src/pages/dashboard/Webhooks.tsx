@@ -1,133 +1,287 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Webhook, Plus, Copy, MoreVertical, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { 
+  Webhook, 
+  Plus, 
+  Copy, 
+  MoreVertical, 
+  CheckCircle, 
+  XCircle, 
+  Loader2,
+  Trash2,
+  Pause,
+  Play
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
+import { useAuditLog } from "@/hooks/useAuditLog";
 
-const webhooks = [
-  { id: "wh_001", url: "https://api.yourapp.com/webhooks/paylaterr", events: ["payment.completed", "plan.created"], status: "active", lastTriggered: "2 min ago" },
-  { id: "wh_002", url: "https://hooks.slack.com/services/...", events: ["payment.failed"], status: "active", lastTriggered: "1 hour ago" },
-  { id: "wh_003", url: "https://api.analytics.com/track", events: ["plan.completed"], status: "disabled", lastTriggered: "2 days ago" },
-];
-
-const recentEvents = [
-  { id: 1, event: "payment.completed", status: "delivered", responseTime: "124ms", time: "2 min ago" },
-  { id: 2, event: "plan.created", status: "delivered", responseTime: "89ms", time: "5 min ago" },
-  { id: 3, event: "payment.failed", status: "failed", responseTime: "-", time: "1 hour ago" },
-  { id: 4, event: "payment.completed", status: "delivered", responseTime: "156ms", time: "2 hours ago" },
+const AVAILABLE_EVENTS = [
+  "payment.completed",
+  "payment.failed",
+  "plan.created",
+  "plan.completed",
+  "kyc.verified",
+  "kyc.failed",
+  "decision.approved",
+  "decision.declined",
 ];
 
 const DashboardWebhooks = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const { log } = useAuditLog();
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [newUrl, setNewUrl] = useState("");
+  const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
+
+  const { data: webhooks = [], isLoading } = useQuery({
+    queryKey: ["webhooks"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("webhooks")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user,
+  });
+
+  const createWebhook = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("webhooks").insert({
+        user_id: user!.id,
+        url: newUrl,
+        events: selectedEvents,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["webhooks"] });
+      setIsCreateOpen(false);
+      log("webhook.created", "webhook", undefined, { url: newUrl, events: selectedEvents });
+      setNewUrl("");
+      setSelectedEvents([]);
+      toast({ title: "Webhook created", description: "Your endpoint has been added." });
+    },
+    onError: (e: any) => {
+      toast({ title: "Error", description: e.message, variant: "destructive" });
+    },
+  });
+
+  const toggleStatus = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase
+        .from("webhooks")
+        .update({ status: status === "active" ? "disabled" : "active" })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: (_data, vars) => {
+      queryClient.invalidateQueries({ queryKey: ["webhooks"] });
+      log("webhook.updated", "webhook", vars.id);
+    },
+  });
+
+  const deleteWebhook = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("webhooks").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({ queryKey: ["webhooks"] });
+      log("webhook.deleted", "webhook", id);
+      toast({ title: "Webhook deleted" });
+    },
+  });
+
+  const toggleEvent = (event: string) => {
+    setSelectedEvents(prev =>
+      prev.includes(event) ? prev.filter(e => e !== event) : [...prev, event]
+    );
+  };
+
+  const activeCount = webhooks.filter(w => w.status === "active").length;
+
   return (
     <div className="p-6 lg:p-8">
-      {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Webhooks</h1>
           <p className="text-muted-foreground mt-1">Receive real-time notifications for events</p>
         </div>
-        <Button variant="default" className="mt-4 lg:mt-0">
-          <Plus className="w-4 h-4 mr-2" />
-          Add Endpoint
-        </Button>
-      </div>
-
-      {/* Stats */}
-      <div className="grid sm:grid-cols-3 gap-4 mb-8">
-        <Card className="p-4 bg-card border-border text-center">
-          <p className="text-3xl font-bold text-foreground">12,847</p>
-          <p className="text-sm text-muted-foreground mt-1">Events Sent (24h)</p>
-        </Card>
-        <Card className="p-4 bg-card border-border text-center">
-          <p className="text-3xl font-bold text-primary">99.8%</p>
-          <p className="text-sm text-muted-foreground mt-1">Delivery Rate</p>
-        </Card>
-        <Card className="p-4 bg-card border-border text-center">
-          <p className="text-3xl font-bold text-foreground">142ms</p>
-          <p className="text-sm text-muted-foreground mt-1">Avg Response Time</p>
-        </Card>
-      </div>
-
-      {/* Endpoints */}
-      <h2 className="text-lg font-semibold text-foreground mb-4">Webhook Endpoints</h2>
-      <div className="space-y-3 mb-8">
-        {webhooks.map((webhook) => (
-          <Card key={webhook.id} className="p-4 bg-card border-border">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Webhook className="w-5 h-5 text-primary" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <code className="text-sm font-mono text-foreground truncate max-w-xs">{webhook.url}</code>
-                    <Button variant="ghost" size="icon" className="h-6 w-6">
-                      <Copy className="w-3 h-3" />
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {webhook.events.map((event) => (
-                      <span key={event} className="text-xs px-2 py-0.5 bg-secondary rounded text-muted-foreground">
-                        {event}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+        <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+          <DialogTrigger asChild>
+            <Button variant="default" className="mt-4 lg:mt-0">
+              <Plus className="w-4 h-4 mr-2" />
+              Add Endpoint
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-card border-border sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-base sm:text-lg">Add Webhook Endpoint</DialogTitle>
+              <DialogDescription className="text-xs sm:text-sm">Configure a URL to receive event notifications.</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-3 sm:space-y-4 py-3 sm:py-4">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label className="text-sm">Endpoint URL</Label>
+                <Input
+                  value={newUrl}
+                  onChange={(e) => setNewUrl(e.target.value)}
+                  placeholder="https://api.yourapp.com/webhooks"
+                  className="bg-secondary border-border h-10 text-sm"
+                />
               </div>
-              <div className="flex items-center gap-4">
-                <div className="text-right hidden sm:block">
-                  <p className="text-sm text-muted-foreground">Last triggered</p>
-                  <p className="text-sm text-foreground">{webhook.lastTriggered}</p>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label className="text-sm">Events to subscribe</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {AVAILABLE_EVENTS.map(event => (
+                    <div key={event} className="flex items-center gap-2 touch-manipulation">
+                      <Checkbox
+                        id={event}
+                        checked={selectedEvents.includes(event)}
+                        onCheckedChange={() => toggleEvent(event)}
+                        className="shrink-0"
+                      />
+                      <Label htmlFor={event} className="text-xs sm:text-sm font-mono cursor-pointer truncate">{event}</Label>
+                    </div>
+                  ))}
                 </div>
-                <Badge variant={webhook.status === 'active' ? 'default' : 'secondary'}>
-                  {webhook.status}
-                </Badge>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="w-4 h-4" />
-                </Button>
               </div>
             </div>
-          </Card>
-        ))}
+            <DialogFooter className="flex-col-reverse sm:flex-row gap-2">
+              <Button variant="outline" onClick={() => setIsCreateOpen(false)} className="w-full sm:w-auto text-sm min-h-10">Cancel</Button>
+              <Button
+                onClick={() => createWebhook.mutate()}
+                disabled={!newUrl || selectedEvents.length === 0 || createWebhook.isPending}
+                className="w-full sm:w-auto text-sm min-h-10 touch-manipulation"
+              >
+                {createWebhook.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin flex-shrink-0" />}
+                Create Webhook
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-
-      {/* Recent Events */}
-      <h2 className="text-lg font-semibold text-foreground mb-4">Recent Events</h2>
-      <Card className="bg-card border-border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border bg-secondary/50">
-                <th className="text-left px-6 py-3 text-xs font-medium text-muted-foreground uppercase">Event</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-muted-foreground uppercase">Status</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-muted-foreground uppercase">Response Time</th>
-                <th className="text-left px-6 py-3 text-xs font-medium text-muted-foreground uppercase">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentEvents.map((event) => (
-                <tr key={event.id} className="border-b border-border">
-                  <td className="px-6 py-4 font-mono text-sm text-foreground">{event.event}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      {event.status === 'delivered' ? (
-                        <CheckCircle className="w-4 h-4 text-primary" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-destructive" />
-                      )}
-                      <span className={event.status === 'delivered' ? 'text-primary' : 'text-destructive'}>
-                        {event.status}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-muted-foreground">{event.responseTime}</td>
-                  <td className="px-6 py-4 text-sm text-muted-foreground">{event.time}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className="grid sm:grid-cols-3 gap-4 mb-8">
+        <Card className="p-4 bg-card border-border text-center">
+          <p className="text-3xl font-bold text-foreground">{webhooks.length}</p>
+          <p className="text-sm text-muted-foreground mt-1">Total Endpoints</p>
+        </Card>
+        <Card className="p-4 bg-card border-border text-center">
+          <p className="text-3xl font-bold text-primary">{activeCount}</p>
+          <p className="text-sm text-muted-foreground mt-1">Active</p>
+        </Card>
+        <Card className="p-4 bg-card border-border text-center">
+          <p className="text-3xl font-bold text-foreground">{webhooks.length - activeCount}</p>
+          <p className="text-sm text-muted-foreground mt-1">Disabled</p>
+        </Card>
+      </div>
+      <h2 className="text-lg font-semibold text-foreground mb-4">Webhook Endpoints</h2>
+      {isLoading ? (
+        <div className="flex justify-center py-12">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
         </div>
-      </Card>
+      ) : webhooks.length === 0 ? (
+        <Card className="p-8 bg-card border-border text-center">
+          <Webhook className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
+          <p className="text-muted-foreground">No webhooks configured yet. Add an endpoint to get started.</p>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {webhooks.map((webhook) => (
+            <Card key={webhook.id} className="p-4 bg-card border-border">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Webhook className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <code className="text-sm font-mono text-foreground truncate max-w-xs">{webhook.url}</code>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6"
+                        onClick={() => {
+                          navigator.clipboard.writeText(webhook.url);
+                          toast({ title: "Copied!" });
+                        }}
+                      >
+                        <Copy className="w-3 h-3" />
+                      </Button>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {(webhook.events as string[]).map((event: string) => (
+                        <span key={event} className="text-xs px-2 py-0.5 bg-secondary rounded text-muted-foreground">
+                          {event}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Badge variant={webhook.status === "active" ? "default" : "secondary"}>
+                    {webhook.status}
+                  </Badge>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon" className="h-9 w-9 touch-manipulation shrink-0">
+                        <MoreVertical className="w-4 h-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      align="end"
+                      side="bottom"
+                      className="max-w-[min(16rem,calc(100vw-2rem))] min-w-[10rem] py-1"
+                      sideOffset={6}
+                      collisionPadding={12}
+                    >
+                      <DropdownMenuItem onClick={() => toggleStatus.mutate({ id: webhook.id, status: webhook.status })} className="py-2.5 sm:py-1.5 cursor-pointer">
+                        {webhook.status === "active" ? (
+                          <><Pause className="w-4 h-4 mr-2 shrink-0" /> Disable</>
+                        ) : (
+                          <><Play className="w-4 h-4 mr-2 shrink-0" /> Enable</>
+                        )}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="text-destructive py-2.5 sm:py-1.5 cursor-pointer"
+                        onClick={() => deleteWebhook.mutate(webhook.id)}
+                      >
+                        <Trash2 className="w-4 h-4 mr-2 shrink-0" /> Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,16 @@
+project_id = "cvgzbeiieusqzbacyigm"
+
+[functions.generate-api-key]
+verify_jwt = false
+
+[functions.api-gateway]
+verify_jwt = false
+
+[functions.widget-sdk]
+verify_jwt = false
+
+[functions.platform-status]
+verify_jwt = false
+
+[functions.send-notification]
+verify_jwt = false

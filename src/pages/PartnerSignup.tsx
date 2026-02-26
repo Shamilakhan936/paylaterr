@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import raillayerLogo from "@/assets/raillayer-logo.png";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +40,7 @@ const products = [
   { id: "rewards", name: "Bill Rewards" },
   { id: "latefees", name: "LateFees Protection" },
   { id: "autofloat", name: "AutoFloat" },
-  { id: "travel", name: "Paylaterr Travel" },
+  { id: "travel", name: "Rail Layer Travel" },
 ];
 
 const PartnerSignup = () => {
@@ -88,45 +89,45 @@ const PartnerSignup = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <Card className="max-w-lg w-full p-8 bg-card border-border text-center">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <Check className="w-8 h-8 text-primary" />
+      <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6">
+        <Card className="max-w-lg w-full p-5 sm:p-8 bg-card border-border text-center">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 sm:mb-6">
+            <Check className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">Application Submitted!</h1>
-          <p className="text-muted-foreground mb-6">
-            Thank you for your interest in becoming a Paylaterr partner. We'll review your application and get back to you within 1-2 business days.
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2">Application Submitted!</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
+            Thank you for your interest in becoming a Rail Layer partner. We'll review your application and get back to you within 1-2 business days.
           </p>
           
-          <div className="bg-secondary p-4 rounded-lg mb-6 text-left">
-            <h3 className="font-medium text-foreground mb-3">What happens next?</h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
+          <div className="bg-secondary p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 text-left">
+            <h3 className="font-medium text-foreground text-sm sm:text-base mb-2 sm:mb-3">What happens next?</h3>
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-start gap-2.5 sm:gap-3">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-xs font-bold text-primary">1</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Our team reviews your application</p>
+                <p className="text-xs sm:text-sm text-muted-foreground pt-0.5">Our team reviews your application</p>
               </div>
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2.5 sm:gap-3">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-xs font-bold text-primary">2</span>
                 </div>
-                <p className="text-sm text-muted-foreground">You'll receive sandbox API keys via email</p>
+                <p className="text-xs sm:text-sm text-muted-foreground pt-0.5">You'll receive sandbox API keys via email</p>
               </div>
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2.5 sm:gap-3">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-xs font-bold text-primary">3</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Start integrating with our sandbox environment</p>
+                <p className="text-xs sm:text-sm text-muted-foreground pt-0.5">Start integrating with our sandbox environment</p>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="outline" className="flex-1" asChild>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <Button variant="outline" className="flex-1 text-sm sm:text-base min-h-10" asChild>
               <Link to="/">Return to Home</Link>
             </Button>
-            <Button variant="hero" className="flex-1" asChild>
+            <Button variant="hero" className="flex-1 text-sm sm:text-base min-h-10" asChild>
               <Link to="/developers/api-reference">View API Docs</Link>
             </Button>
           </div>
@@ -137,56 +138,48 @@ const PartnerSignup = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b border-border">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">P</span>
-            </div>
-            <span className="text-lg font-semibold text-foreground">Paylaterr</span>
+            <img src={raillayerLogo} alt="Rail Layer" className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex-shrink-0" />
+            <span className="text-base sm:text-lg font-semibold text-foreground">Rail Layer</span>
           </Link>
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="max-w-3xl mx-auto">
-          {/* Title */}
-          <div className="text-center mb-10">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Become a Partner</h1>
-            <p className="text-muted-foreground">
-              Get access to our enterprise APIs and start building with Paylaterr
+          <div className="text-center mb-6 sm:mb-10">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1.5 sm:mb-2">Become a Partner</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Get access to our enterprise APIs and start building with Rail Layer
             </p>
           </div>
-
-          {/* Benefits */}
-          <div className="grid sm:grid-cols-3 gap-4 mb-10">
-            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-              <Zap className="w-5 h-5 text-primary flex-shrink-0" />
-              <span className="text-sm text-foreground">Instant sandbox access</span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-10">
+            <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-card rounded-lg border border-border">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-foreground">Instant sandbox access</span>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-              <Clock className="w-5 h-5 text-accent flex-shrink-0" />
-              <span className="text-sm text-foreground">1-2 day approval</span>
+            <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-card rounded-lg border border-border">
+              <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-foreground">1-2 day approval</span>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-              <Key className="w-5 h-5 text-primary flex-shrink-0" />
-              <span className="text-sm text-foreground">Free API testing</span>
+            <div className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-card rounded-lg border border-border">
+              <Key className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-foreground">Free API testing</span>
             </div>
           </div>
-
-          {/* Progress Steps */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center w-full mb-6 sm:mb-8">
             {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center">
-                <div className={`flex items-center gap-2 ${
+              <div key={step.id} className="flex items-center flex-1 min-w-0 last:flex-none">
+                <div className={`flex items-center gap-1.5 sm:gap-2 min-w-0 ${
                   step.id === currentStep 
                     ? 'text-primary' 
                     : step.id < currentStep 
                       ? 'text-primary' 
                       : 'text-muted-foreground'
                 }`}>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     step.id === currentStep 
                       ? 'bg-primary text-primary-foreground' 
                       : step.id < currentStep 
@@ -194,35 +187,32 @@ const PartnerSignup = () => {
                         : 'bg-secondary text-muted-foreground'
                   }`}>
                     {step.id < currentStep ? (
-                      <Check className="w-5 h-5" />
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                     ) : (
-                      <step.icon className="w-5 h-5" />
+                      <step.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                     )}
                   </div>
-                  <span className="hidden sm:block text-sm font-medium">{step.title}</span>
+                  <span className="hidden sm:block text-sm font-medium truncate">{step.title}</span>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`w-12 sm:w-24 h-0.5 mx-2 ${
+                  <div className={`flex-1 min-w-2 sm:min-w-4 h-0.5 mx-1 sm:mx-2 ${
                     step.id < currentStep ? 'bg-primary' : 'bg-border'
-                  }`} />
+                  }`} aria-hidden />
                 )}
               </div>
             ))}
           </div>
-
-          {/* Form Card */}
-          <Card className="p-6 lg:p-8 bg-card border-border">
-            {/* Step 1: Company Info */}
+          <Card className="p-4 sm:p-6 lg:p-8 bg-card border-border">
             {currentStep === 1 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground mb-1">Company Information</h2>
-                  <p className="text-sm text-muted-foreground">Tell us about your organization</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">Company Information</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Tell us about your organization</p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="companyName">Company Name *</Label>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="companyName" className="text-sm">Company Name *</Label>
                     <Input 
                       id="companyName"
                       value={formData.companyName}
@@ -231,8 +221,8 @@ const PartnerSignup = () => {
                       className="bg-secondary border-border"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="website">Company Website *</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="website" className="text-sm">Company Website *</Label>
                     <Input 
                       id="website"
                       value={formData.website}
@@ -243,9 +233,9 @@ const PartnerSignup = () => {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Industry *</Label>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label className="text-sm">Industry *</Label>
                     <Select 
                       value={formData.industry} 
                       onValueChange={(value) => updateFormData('industry', value)}
@@ -264,8 +254,8 @@ const PartnerSignup = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label>Company Size *</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label className="text-sm">Company Size *</Label>
                     <Select 
                       value={formData.companySize} 
                       onValueChange={(value) => updateFormData('companySize', value)}
@@ -285,18 +275,16 @@ const PartnerSignup = () => {
                 </div>
               </div>
             )}
-
-            {/* Step 2: Contact Details */}
             {currentStep === 2 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground mb-1">Contact Details</h2>
-                  <p className="text-sm text-muted-foreground">Who should we contact about your integration?</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">Contact Details</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Who should we contact about your integration?</p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name *</Label>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="firstName" className="text-sm">First Name *</Label>
                     <Input 
                       id="firstName"
                       value={formData.firstName}
@@ -305,8 +293,8 @@ const PartnerSignup = () => {
                       className="bg-secondary border-border"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name *</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="lastName" className="text-sm">Last Name *</Label>
                     <Input 
                       id="lastName"
                       value={formData.lastName}
@@ -317,8 +305,8 @@ const PartnerSignup = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Work Email *</Label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="email" className="text-sm">Work Email *</Label>
                   <Input 
                     id="email"
                     type="email"
@@ -329,9 +317,9 @@ const PartnerSignup = () => {
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="phone" className="text-sm">Phone Number</Label>
                     <Input 
                       id="phone"
                       value={formData.phone}
@@ -340,8 +328,8 @@ const PartnerSignup = () => {
                       className="bg-secondary border-border"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="jobTitle">Job Title *</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="jobTitle" className="text-sm">Job Title *</Label>
                     <Input 
                       id="jobTitle"
                       value={formData.jobTitle}
@@ -353,54 +341,52 @@ const PartnerSignup = () => {
                 </div>
               </div>
             )}
-
-            {/* Step 3: Integration */}
             {currentStep === 3 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground mb-1">Integration Details</h2>
-                  <p className="text-sm text-muted-foreground">Tell us about your integration plans</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">Integration Details</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Tell us about your integration plans</p>
                 </div>
 
-                <div className="space-y-3">
-                  <Label>Which products are you interested in? *</Label>
-                  <div className="grid sm:grid-cols-2 gap-3">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-sm">Which products are you interested in? *</Label>
+                  <div className="grid sm:grid-cols-2 gap-2 sm:gap-3">
                     {products.map((product) => (
                       <div 
                         key={product.id}
                         onClick={() => toggleProduct(product.id)}
-                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                        className={`p-2.5 sm:p-3 rounded-lg border cursor-pointer transition-colors touch-manipulation ${
                           formData.selectedProducts.includes(product.id)
                             ? 'bg-primary/10 border-primary text-foreground'
                             : 'bg-secondary border-border text-muted-foreground hover:border-primary/50'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
                           <Checkbox 
                             checked={formData.selectedProducts.includes(product.id)}
-                            className="border-border"
+                            className="border-border flex-shrink-0"
                           />
-                          <span className="text-sm font-medium">{product.name}</span>
+                          <span className="text-xs sm:text-sm font-medium">{product.name}</span>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="useCase">Describe your use case *</Label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="useCase" className="text-sm">Describe your use case *</Label>
                   <Textarea 
                     id="useCase"
                     value={formData.useCase}
                     onChange={(e) => updateFormData('useCase', e.target.value)}
-                    placeholder="Tell us how you plan to integrate Paylaterr APIs into your product..."
-                    className="bg-secondary border-border min-h-[100px]"
+                    placeholder="Tell us how you plan to integrate Rail Layer APIs into your product..."
+                    className="bg-secondary border-border min-h-[90px] sm:min-h-[100px] text-sm sm:text-base"
                   />
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Expected Monthly Volume</Label>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label className="text-sm">Expected Monthly Volume</Label>
                     <Select 
                       value={formData.expectedVolume} 
                       onValueChange={(value) => updateFormData('expectedVolume', value)}
@@ -416,8 +402,8 @@ const PartnerSignup = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label>Integration Timeline</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label className="text-sm">Integration Timeline</Label>
                     <Select 
                       value={formData.timeline} 
                       onValueChange={(value) => updateFormData('timeline', value)}
@@ -437,36 +423,34 @@ const PartnerSignup = () => {
                 </div>
               </div>
             )}
-
-            {/* Step 4: Review */}
             {currentStep === 4 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground mb-1">Review & Submit</h2>
-                  <p className="text-sm text-muted-foreground">Please review your information before submitting</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-0.5 sm:mb-1">Review & Submit</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Please review your information before submitting</p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Company</p>
-                      <p className="text-foreground font-medium">{formData.companyName || '-'}</p>
-                      <p className="text-sm text-muted-foreground">{formData.website}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5 sm:mb-1">Company</p>
+                      <p className="text-foreground font-medium text-sm sm:text-base break-words">{formData.companyName || '-'}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground break-all">{formData.website}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Industry</p>
-                      <p className="text-foreground">{formData.industry || '-'}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5 sm:mb-1">Industry</p>
+                      <p className="text-foreground text-sm sm:text-base">{formData.industry || '-'}</p>
                     </div>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Contact</p>
-                      <p className="text-foreground font-medium">{formData.firstName} {formData.lastName}</p>
-                      <p className="text-sm text-muted-foreground">{formData.email}</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5 sm:mb-1">Contact</p>
+                      <p className="text-foreground font-medium text-sm sm:text-base">{formData.firstName} {formData.lastName}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground break-all">{formData.email}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Products</p>
-                      <p className="text-foreground">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5 sm:mb-1">Products</p>
+                      <p className="text-foreground text-sm sm:text-base break-words">
                         {formData.selectedProducts.length > 0 
                           ? formData.selectedProducts.map(id => 
                               products.find(p => p.id === id)?.name
@@ -477,61 +461,61 @@ const PartnerSignup = () => {
                   </div>
                 </div>
 
-                <div className="border-t border-border pt-6 space-y-4">
-                  <div className="flex items-start gap-3">
+                <div className="border-t border-border pt-4 sm:pt-6 space-y-3 sm:space-y-4">
+                  <div className="flex items-start gap-2.5 sm:gap-3">
                     <Checkbox 
                       id="terms"
                       checked={formData.agreeTerms}
                       onCheckedChange={(checked) => updateFormData('agreeTerms', checked === true)}
+                      className="flex-shrink-0 mt-0.5"
                     />
-                    <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed">
+                    <Label htmlFor="terms" className="text-xs sm:text-sm text-muted-foreground leading-relaxed cursor-pointer">
                       I agree to the <Link to="/legal/terms" className="text-primary hover:underline">Terms of Service</Link> and understand that my company's information will be used to evaluate our partnership application.
                     </Label>
                   </div>
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-2.5 sm:gap-3">
                     <Checkbox 
                       id="privacy"
                       checked={formData.agreePrivacy}
                       onCheckedChange={(checked) => updateFormData('agreePrivacy', checked === true)}
+                      className="flex-shrink-0 mt-0.5"
                     />
-                    <Label htmlFor="privacy" className="text-sm text-muted-foreground leading-relaxed">
+                    <Label htmlFor="privacy" className="text-xs sm:text-sm text-muted-foreground leading-relaxed cursor-pointer">
                       I have read and agree to the <Link to="/legal/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
                     </Label>
                   </div>
                 </div>
               </div>
             )}
-
-            {/* Navigation */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
+            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-border">
               <Button 
                 variant="outline" 
                 onClick={prevStep}
                 disabled={currentStep === 1}
+                className="text-sm sm:text-base min-h-10 touch-manipulation"
               >
                 Back
               </Button>
               
               {currentStep < 4 ? (
-                <Button variant="hero" onClick={nextStep}>
+                <Button variant="hero" onClick={nextStep} className="text-sm sm:text-base min-h-10 touch-manipulation">
                   Continue
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />
                 </Button>
               ) : (
                 <Button 
                   variant="hero" 
                   onClick={handleSubmit}
                   disabled={!formData.agreeTerms || !formData.agreePrivacy}
+                  className="text-sm sm:text-base min-h-10 touch-manipulation"
                 >
                   Submit Application
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />
                 </Button>
               )}
             </div>
           </Card>
-
-          {/* Already a partner? */}
-          <p className="text-center text-sm text-muted-foreground mt-6">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground mt-4 sm:mt-6 px-2">
             Already a partner?{' '}
             <Link to="/dashboard" className="text-primary hover:underline">
               Sign in to your dashboard

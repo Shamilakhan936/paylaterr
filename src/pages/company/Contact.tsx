@@ -1,100 +1,91 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone } from "lucide-react";
 
-const Contact = () => {
+export default function Contact() {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-[foreground] mb-4">
-              Contact Us
-            </h1>
-            <p className="text-lg text-[#99A1AF] max-w-2xl mx-auto">
-              Have questions? We'd love to hear from you.
-            </p>
-          </div>
-        </section>
+        <PageHero title="Contact Us">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Have questions? We'd love to hear from you.
+          </p>
+        </PageHero>
 
-        {/* Content */}
-        <section className="py-16">
-          <div className="container mx-auto px-6 md:px-10">
-            <div className="grid lg:grid-cols-2 gap-24  mx-auto">
-              {/* Contact Form */}
-              <Card className="p-8 bg-[#151A21] border-[#1E2939]">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Send us a message</h2>
-                <form className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
+        <section className="py-12 sm:py-16 lg:py-16">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 max-w-5xl mx-auto">
+              <Card className="p-5 sm:p-6 lg:p-8 bg-card border-border">
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Send us a message</h2>
+                <form className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-[#99A1AF] mb-2 block">First Name</label>
-                      <Input placeholder="John" />
+                      <label className="text-sm text-muted-foreground mb-1.5 sm:mb-2 block">First Name</label>
+                      <Input placeholder="John" className="h-10 sm:h-10" />
                     </div>
                     <div>
-                      <label className="text-sm text-[#99A1AF] mb-2 block">Last Name</label>
-                      <Input placeholder="Doe" />
+                      <label className="text-sm text-muted-foreground mb-1.5 sm:mb-2 block">Last Name</label>
+                      <Input placeholder="Doe" className="h-10 sm:h-10" />
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm text-[#99A1AF] mb-2 block">Email</label>
-                    <Input type="email" placeholder="john@company.com" />
+                    <label className="text-sm text-muted-foreground mb-1.5 sm:mb-2 block">Email</label>
+                    <Input type="email" placeholder="john@company.com" className="h-10 sm:h-10" />
                   </div>
                   <div>
-                    <label className="text-sm text-[#99A1AF] mb-2 block">Company</label>
-                    <Input placeholder="Your company name" />
+                    <label className="text-sm text-muted-foreground mb-1.5 sm:mb-2 block">Company</label>
+                    <Input placeholder="Your company name" className="h-10 sm:h-10" />
                   </div>
                   <div>
-                    <label className="text-sm text-[#99A1AF] mb-2 block">Message</label>
-                    <Textarea placeholder="How can we help?" rows={4} />
+                    <label className="text-sm text-muted-foreground mb-1.5 sm:mb-2 block">Message</label>
+                    <Textarea placeholder="How can we help?" rows={4} className="min-h-[100px] sm:min-h-[120px]" />
                   </div>
-                  <Button variant="" className="w-full bg-[#2DD4BF] hover:bg-black hover:text-white" size="lg">
+                  <Button variant="hero" className="w-full" size="lg">
                     Send Message
                   </Button>
                 </form>
               </Card>
 
-              {/* Contact Info */}
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Get in touch</h2>
-                  <p className="text-[#99A1AF] mb-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Get in touch</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
                     Our team is here to help. Reach out and we'll get back to you within 24 hours.
                   </p>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#151A21] border-[#1E2939] border flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5 text-primary" />
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">Email</h3>
-                      <p className="text-[#99A1AF] text-sm">hello@paylaterr.com</p>
-                      <p className="text-[#99A1AF] text-sm">support@paylaterr.com</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#151A21] border-[#1E2939] border flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">Phone</h3>
-                      <p className="text-[#99A1AF] text-sm">+1 (555) 123-4567</p>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-foreground text-sm sm:text-base">Email</h3>
+                      <p className="text-sm text-muted-foreground">hello@raillayer.com</p>
+                      <p className="text-sm text-muted-foreground">support@raillayer.com</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#151A21] border-[#1E2939] border flex flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-primary" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">Office</h3>
-                      <p className="text-[#99A1AF] text-sm">
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-foreground text-sm sm:text-base">Phone</h3>
+                      <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-foreground text-sm sm:text-base">Office</h3>
+                      <p className="text-sm text-muted-foreground">
                         548 Market Street, Suite 12345<br />
                         San Francisco, CA 94104
                       </p>
@@ -108,6 +99,4 @@ const Contact = () => {
       </div>
     </PageLayout>
   );
-};
-
-export default Contact;
+}

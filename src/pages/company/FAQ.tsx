@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,10 +19,9 @@ interface FAQItem {
 }
 
 const faqData: FAQItem[] = [
-  // Getting Started
   {
     category: "Getting Started",
-    question: "How do I create a Paylaterr account?",
+    question: "How do I create a Rail Layer account?",
     answer: "Visit our partner signup page and complete the registration form. You'll need to provide your company information, contact details, and describe your intended use case. Once submitted, you'll receive sandbox API keys within minutes."
   },
   {
@@ -35,7 +34,6 @@ const faqData: FAQItem[] = [
     question: "How long does it take to get production access?",
     answer: "After completing your sandbox integration, you can request production access. Our team reviews applications within 1-2 business days. You'll need to demonstrate a working integration and pass our security review."
   },
-  // API & Integration
   {
     category: "API & Integration",
     question: "What programming languages do you support?",
@@ -56,11 +54,10 @@ const faqData: FAQItem[] = [
     question: "Can I test webhooks in sandbox?",
     answer: "Yes! You can configure webhook endpoints in sandbox and trigger test events from the dashboard. We also provide a webhook testing tool to simulate various event types."
   },
-  // Products
   {
     category: "Products",
     question: "What products are available?",
-    answer: "We offer 7 products: BNPL Bills (split bills into installments), SpendNest (spending analytics), EarlyPay (earned wage access), Bill Rewards (loyalty program), LateFees Protection, AutoFloat (cash flow management), and Paylaterr Travel."
+    answer: "We offer 7 products: BNPL Bills (split bills into installments), SpendNest (spending analytics), EarlyPay (earned wage access), Bill Rewards (loyalty program), LateFees Protection, AutoFloat (cash flow management), and Rail Layer Travel."
   },
   {
     category: "Products",
@@ -72,7 +69,6 @@ const faqData: FAQItem[] = [
     question: "Do I need to integrate all products at once?",
     answer: "No, you can start with one product and add more as needed. Each product has its own set of endpoints and can be integrated independently."
   },
-  // Billing & Pricing
   {
     category: "Billing & Pricing",
     question: "How does pricing work?",
@@ -88,11 +84,10 @@ const faqData: FAQItem[] = [
     question: "What payment methods do you accept?",
     answer: "We accept all major credit cards (Visa, Mastercard, American Express), ACH bank transfers, and wire transfers for Enterprise customers."
   },
-  // Security
   {
     category: "Security & Compliance",
-    question: "Is Paylaterr PCI compliant?",
-    answer: "Yes, Paylaterr is PCI DSS Level 1 certified. We handle all sensitive payment data, so your integration doesn't need to worry about PCI compliance for data that flows through our API."
+    question: "Is Rail Layer PCI compliant?",
+    answer: "Yes, Rail Layer is PCI DSS Level 1 certified. We handle all sensitive payment data, so your integration doesn't need to worry about PCI compliance for data that flows through our API."
   },
   {
     category: "Security & Compliance",
@@ -134,32 +129,24 @@ const FAQ = () => {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 bg-gradient-mesh">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Find answers to common questions about the Paylaterr platform
-            </p>
-            <div className="max-w-lg mx-auto relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input 
-                placeholder="Search questions..." 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-12 h-12 bg-card border-border"
-              />
-            </div>
+        <PageHero title="Frequently Asked Questions">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            Find answers to common questions about the Rail Layer platform
+          </p>
+          <div className="max-w-lg mx-auto relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              placeholder="Search questions..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-12 h-12 bg-card border-border"
+            />
           </div>
-        </section>
+        </PageHero>
 
-        {/* Content */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-8">
-              {/* Categories Sidebar */}
               <div className="lg:w-64 flex-shrink-0">
                 <Card className="p-4 bg-card border-border sticky top-24">
                   <h3 className="font-semibold text-foreground mb-4">Categories</h3>
@@ -187,7 +174,6 @@ const FAQ = () => {
                 </Card>
               </div>
 
-              {/* FAQ List */}
               <div className="flex-1">
                 <div className="space-y-4">
                   {filteredFAQ.map((item, index) => (
@@ -231,7 +217,6 @@ const FAQ = () => {
           </div>
         </section>
 
-        {/* Contact CTA */}
         <section className="py-16 bg-gradient-card">
           <div className="container mx-auto px-6 text-center">
             <MessageCircle className="w-12 h-12 text-primary mx-auto mb-4" />

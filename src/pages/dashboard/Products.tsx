@@ -12,7 +12,12 @@ import {
   Plane,
   ArrowRight,
   Code,
-  Zap
+  Zap,
+  Brain,
+  UserCheck,
+  Smartphone,
+  CreditCard,
+  ArrowLeftRight
 } from "lucide-react";
 
 const products = [
@@ -84,7 +89,7 @@ const products = [
   },
   {
     id: "travel",
-    name: "Paylaterr Travel",
+    name: "Rail Layer Travel",
     shortName: "Travel",
     description: "Travel financing solution for flights, hotels, and vacation packages with flexible payment terms.",
     icon: Plane,
@@ -93,18 +98,72 @@ const products = [
     endpoint: "/v1/travel/book",
     status: "live",
   },
+  {
+    id: "decision-engine",
+    name: "Decision Engine",
+    shortName: "Decision Engine",
+    description: "Real-time credit and risk decisioning engine powered by configurable rules and machine learning models.",
+    icon: Brain,
+    color: "bg-primary/10 text-primary",
+    features: ["Configurable rule sets", "ML-powered scoring", "Real-time decisioning API"],
+    endpoint: "/v1/decisions/evaluate",
+    status: "live",
+  },
+  {
+    id: "kyc",
+    name: "KYC",
+    shortName: "KYC",
+    description: "Know Your Customer identity verification with document checks, liveness detection, and AML screening.",
+    icon: UserCheck,
+    color: "bg-accent/10 text-accent",
+    features: ["Document verification", "Liveness detection", "AML/PEP screening"],
+    endpoint: "/v1/kyc/verify",
+    status: "live",
+  },
+  {
+    id: "device-intelligence",
+    name: "Device Intelligence",
+    shortName: "Device Intel",
+    description: "Advanced device fingerprinting and behavioral analytics for fraud prevention and risk assessment.",
+    icon: Smartphone,
+    color: "bg-destructive/10 text-destructive",
+    features: ["Device fingerprinting", "Behavioral biometrics", "Fraud signal detection"],
+    endpoint: "/v1/device/analyze",
+    status: "live",
+  },
+  {
+    id: "payment-gateway",
+    name: "Payment Gateway",
+    shortName: "Pay Gateway",
+    description: "Full-stack payment acceptance with support for cards, ACH, wallets, and alternative payment methods.",
+    icon: CreditCard,
+    color: "bg-primary/10 text-primary",
+    features: ["Multi-method acceptance", "Real-time fraud checks", "PCI DSS Level 1"],
+    endpoint: "/v1/payments/charge",
+    status: "live",
+  },
+  {
+    id: "payment-processing",
+    name: "Payment Processing",
+    shortName: "Processing",
+    description: "High-volume batch settlement, reconciliation, and disbursement engine for enterprise payment flows.",
+    icon: ArrowLeftRight,
+    color: "bg-accent/10 text-accent",
+    features: ["Batch settlement", "Auto-reconciliation", "Multi-currency disbursement"],
+    endpoint: "/v1/processing/batch",
+    status: "live",
+  },
 ];
 
 const DashboardProducts = () => {
   return (
     <div className="p-6 lg:p-8">
-      {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Products</h1>
           <p className="text-muted-foreground mt-1">Enterprise APIs for flexible payment solutions</p>
         </div>
-        <div className="flex items-center gap-3 mt-4 lg:mt-0">
+        <div className="flex max-sm:flex-col items-center gap-3 mt-4 lg:mt-0">
           <Button variant="outline" asChild>
             <Link to="/developers/api-reference">
               <Code className="w-4 h-4 mr-2" />
@@ -118,8 +177,6 @@ const DashboardProducts = () => {
           </Button>
         </div>
       </div>
-
-      {/* Stats */}
       <div className="grid sm:grid-cols-3 gap-4 mb-8">
         <Card className="p-4 bg-card border-border flex items-center gap-4">
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -127,7 +184,7 @@ const DashboardProducts = () => {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Active Products</p>
-            <p className="text-xl font-bold text-foreground">7</p>
+            <p className="text-xl font-bold text-foreground">12</p>
           </div>
         </Card>
         <Card className="p-4 bg-card border-border flex items-center gap-4">
@@ -149,8 +206,6 @@ const DashboardProducts = () => {
           </div>
         </Card>
       </div>
-
-      {/* Products Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <Link key={product.id} to={`/dashboard/products/${product.id}`}>
@@ -198,8 +253,6 @@ const DashboardProducts = () => {
         </Link>
         ))}
       </div>
-
-      {/* Quick Integration */}
       <Card className="mt-8 p-6 bg-gradient-card border-border">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
@@ -207,8 +260,12 @@ const DashboardProducts = () => {
             <p className="text-muted-foreground">Get started with our SDKs and comprehensive documentation.</p>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="outline">View SDKs</Button>
-            <Button variant="hero">Get API Keys</Button>
+            <Button variant="outline" asChild>
+              <Link to="/developers/sdks">View SDKs</Link>
+            </Button>
+            <Button variant="hero" asChild>
+              <Link to="/dashboard/api-keys">Get API Keys</Link>
+            </Button>
           </div>
         </div>
       </Card>

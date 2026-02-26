@@ -17,7 +17,7 @@ import {
 import { Link } from "react-router-dom";
 
 const quickLinks = [
-  { title: "Getting Started", description: "Learn the basics of the Paylaterr API", icon: Zap, href: "/developers/quickstart" },
+  { title: "Getting Started", description: "Learn the basics of the Rail Layer API", icon: Zap, href: "/developers/quickstart" },
   { title: "API Reference", description: "Explore our complete API documentation", icon: Code2, href: "/developers/api-reference" },
   { title: "SDKs & Libraries", description: "Download SDKs for your language", icon: Book, href: "/developers/sdks" },
   { title: "Security Best Practices", description: "Keep your integration secure", icon: Shield, href: "/legal/security" },
@@ -34,7 +34,7 @@ const popularArticles = [
 
 const faqItems = [
   {
-    question: "How do I get started with the Paylaterr API?",
+    question: "How do I get started with the Rail Layer API?",
     answer: "Sign up for a free account, get your sandbox API keys from the dashboard, and follow our quickstart guide to make your first API call."
   },
   {
@@ -54,7 +54,6 @@ const faqItems = [
 const Help = () => {
   return (
     <div className="p-6 lg:p-8">
-      {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-2xl lg:text-3xl font-bold text-foreground mb-2">How can we help?</h1>
         <p className="text-muted-foreground">Search our knowledge base or browse topics below</p>
@@ -67,8 +66,6 @@ const Help = () => {
           />
         </div>
       </div>
-
-      {/* Quick Links */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {quickLinks.map((link) => (
           <Link key={link.title} to={link.href}>
@@ -84,7 +81,6 @@ const Help = () => {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* Popular Articles */}
         <div className="lg:col-span-2">
           <Card className="p-6 bg-card border-border">
             <div className="flex items-center justify-between mb-6">
@@ -113,8 +109,6 @@ const Help = () => {
             </div>
           </Card>
         </div>
-
-        {/* Contact Support */}
         <div className="space-y-6">
           <Card className="p-6 bg-card border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4">Contact Support</h2>
@@ -132,7 +126,7 @@ const Help = () => {
                 </div>
               </a>
               <a 
-                href="mailto:support@paylaterr.com"
+                href="mailto:support@raillayer.com"
                 className="flex items-center gap-3 p-3 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
               >
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -140,7 +134,7 @@ const Help = () => {
                 </div>
                 <div>
                   <p className="font-medium text-foreground">Email Support</p>
-                  <p className="text-xs text-muted-foreground">support@paylaterr.com</p>
+                  <p className="text-xs text-muted-foreground">support@raillayer.com</p>
                 </div>
               </a>
               <a 
@@ -167,8 +161,6 @@ const Help = () => {
           </Card>
         </div>
       </div>
-
-      {/* FAQ */}
       <Card className="mt-8 p-6 bg-card border-border">
         <h2 className="text-lg font-semibold text-foreground mb-6">Frequently Asked Questions</h2>
         <div className="grid md:grid-cols-2 gap-6">

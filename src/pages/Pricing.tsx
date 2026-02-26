@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
@@ -58,54 +58,41 @@ const Pricing = () => {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        <section className="relative py-20 overflow-hidden">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 60% at 50% 50%, #59168B33 0%, transparent 70%)",
-            }}
-          />
-          <div className="container mx-auto px-6 text-center relative z-10">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Simple, Transparent Pricing
-            </h1>
-            <p className="text-xl text-[#99A1AF] max-w-2xl mx-auto">
-              Start free and scale as you grow. No hidden fees.
-            </p>  
-          </div>
-        </section>
+        <PageHero title="Simple, Transparent Pricing">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Start free and scale as you grow. No hidden fees.
+          </p>
+        </PageHero>
 
-        {/* Pricing Cards */}
-        <section className="py-16 pt-0">
-          <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-3 gap-8  mx-auto">
+        <section className="py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
               {plans.map((plan) => (
                 <Card 
                   key={plan.name} 
-                  className={`p-8 bg-card border-border relative ${
+                  className={`p-5 sm:p-6 md:p-8 bg-card border-border relative ${
                     plan.popular ? 'border-primary shadow-glow' : ''
                   }`}
                 >
                   {plan.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm font-medium rounded-full">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 sm:px-4 py-1 bg-primary text-primary-foreground text-xs sm:text-sm font-medium rounded-full">
                       Most Popular
                     </span>
                   )}
-                  <div className="mb-8">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{plan.name}</h3>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                      <span className="text-[#99A1AF]">{plan.period}</span>
+                  <div className="text-center mb-6 sm:mb-8">
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1.5 sm:mb-2">{plan.name}</h3>
+                    <div className="flex items-baseline justify-center gap-1">
+                      <span className="text-3xl sm:text-4xl font-bold text-foreground">{plan.price}</span>
+                      <span className="text-sm sm:text-base text-muted-foreground">{plan.period}</span>
                     </div>
-                    <p className="text-sm text-[#99A1AF] mt-2">{plan.description}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-1.5 sm:mt-2">{plan.description}</p>
                   </div>
 
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
                     {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 p-1 text-primary bg-[#2DD4BF1A]   rounded-full" />
-                        <span className="text-[#D1D5DC]">{feature}</span>
+                      <li key={i} className="flex items-center gap-2.5 sm:gap-3">
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-muted-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -123,22 +110,21 @@ const Pricing = () => {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="md:py-32 py-16">
-          <div className="container mx-auto px-6 max-w-3xl">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-12">
+        <section className="py-12 sm:py-16 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12">
               Frequently Asked Questions
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {[
                 { q: "What counts as an API call?", a: "Any request to our API endpoints counts as one call. Webhooks and sandbox requests are free." },
                 { q: "Can I upgrade or downgrade anytime?", a: "Yes, you can change your plan at any time. Changes take effect immediately." },
                 { q: "Do you offer annual billing?", a: "Yes, annual billing gives you 2 months free. Contact sales for details." },
                 { q: "Is there a free trial?", a: "All paid plans include a 14-day free trial with full access to features." },
               ].map((faq, i) => (
-                <div key={i} className="p-6 bg-card rounded-lg border border-border">
-                  <h3 className="font-semibold text-foreground mb-2">{faq.q}</h3>
-                  <p className="text-[#99A1AF] text-sm">{faq.a}</p>
+                <div key={i} className="p-4 sm:p-6 bg-card rounded-lg border border-border">
+                  <h3 className="font-semibold text-foreground text-sm sm:text-base mb-1.5 sm:mb-2">{faq.q}</h3>
+                  <p className="text-sm text-muted-foreground">{faq.a}</p>
                 </div>
               ))}
             </div>

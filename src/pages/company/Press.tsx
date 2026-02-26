@@ -1,16 +1,16 @@
-import { PageLayout } from "@/components/layout/PageLayout";
+import { PageLayout, PageHero } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Download, Calendar } from "lucide-react";
 
 const releases = [
+  // {
+  //   title: "Rail Layer Raises $150M Series C",
+  //   date: "January 15, 2024",
+  //   excerpt: "Funding round led by Andreessen Horowitz to accelerate global expansion.",
+  // },
   {
-    title: "Paylaterr Raises $150M Series C",
-    date: "January 15, 2024",
-    excerpt: "Funding round led by Andreessen Horowitz to accelerate global expansion.",
-  },
-  {
-    title: "Paylaterr Expands to 15 New Markets",
+    title: "Rail Layer Expands to 15 New Markets",
     date: "December 10, 2023",
     excerpt: "Now available in 40+ countries with support for 100+ currencies.",
   },
@@ -19,70 +19,60 @@ const releases = [
     date: "November 5, 2023",
     excerpt: "Strategic partnership to bring BNPL to millions of merchants.",
   },
-  {
-    title: "Paylaterr Named to Forbes Fintech 50",
-    date: "October 20, 2023",
-    excerpt: "Recognized as one of the most innovative fintech companies of 2023.",
-  },
+  // {
+  //   title: "Rail Layer Named to Forbes Fintech 50",
+  //   date: "October 20, 2023",
+  //   excerpt: "Recognized as one of the most innovative fintech companies of 2023.",
+  // },
 ];
 
-const Press = () => {
+export default function Press() {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 ">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Press & Media
-            </h1>
-            <p className="text-lg text-[#99A1AF] max-w-2xl mx-auto mb-8">
-              Latest news and announcements from Paylaterr
-            </p>
-            <Button variant="outline" className="bg-[#151A21] border-[#364153] p-4">
-              <Download className="w-4 h-4 mr-2" />
-              Download Press Kit
-            </Button>
-          </div>
-        </section>
+        <PageHero title="Press & Media">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8">
+            Latest news and announcements from Rail Layer
+          </p>
+          <Button variant="outline" className="w-full sm:w-auto">
+            <Download className="w-4 h-4 mr-2" />
+            Download Press Kit
+          </Button>
+        </PageHero>
 
-        {/* Press Releases */}
-        <section className="py-16">
-          <div className="container mx-auto px-6 max-w-4xl">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Press Releases</h2>
-            <div className="space-y-4">
+        <section className="py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6 sm:mb-8">Press Releases</h2>
+            <div className="space-y-3 sm:space-y-4">
               {releases.map((release, index) => (
-                <Card 
-                  key={index} 
-                  className="p-6 bg-[#151A21] border-[#1E2939] hover:border-primary/50 transition-colors cursor-pointer"
+                <Card
+                  key={index}
+                  className="p-4 sm:p-6 bg-card border-border hover:border-primary/50 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center gap-2 text-sm text-[#6A7282] mb-2">
-                    <Calendar className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-1.5 sm:mb-2">
+                    <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                     {release.date}
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{release.title}</h3>
-                  <p className="text-[#99A1AF]">{release.excerpt}</p>
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1.5 sm:mb-2">{release.title}</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground">{release.excerpt}</p>
                 </Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Media Contact */}
-        <section className="py-16 max-w-4xl mx-auto  border-t border-border ">
-          <div className="container mx-auto px-6 text-center">
-            <h2 className="text-2xl font-bold text-foreground mb-4">Media Inquiries</h2>
-            <p className="text-[#99A1AF] mb-6">
+        <section className="py-12 sm:py-16 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">Media Inquiries</h2>
+            <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
               For press inquiries, please contact our media relations team.
             </p>
-            <a href="mailto:press@paylaterr.com" className="text-[#2DD4BF] text-lg font-bold hover:underline">
-              press@paylaterr.com
+            <a href="mailto:press@paylaterr.com" className="text-primary hover:underline text-sm sm:text-base">
+              press@raillayer.com
             </a>
           </div>
         </section>
       </div>
     </PageLayout>
   );
-};
-
-export default Press;
+}
