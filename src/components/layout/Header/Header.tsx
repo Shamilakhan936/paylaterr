@@ -45,7 +45,7 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl bg-background/80">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl bg-[#0B0E11]">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
@@ -60,7 +60,7 @@ export function Header() {
               <div key={link.label} className="relative group">
                 {link.children ? (
                   <>
-                    <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
+                    <button className="flex items-center gap-1 text-sm text-[#D1D5DC] hover:text-foreground transition-colors py-2">
                       {link.label}
                       <ChevronDown className="w-4 h-4" />
                     </button>
@@ -81,7 +81,7 @@ export function Header() {
                 ) : (
                   <Link
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-[#D1D5DC] hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
