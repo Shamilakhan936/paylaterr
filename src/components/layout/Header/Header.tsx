@@ -3,12 +3,12 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { 
-      label: "Products", 
+    {
+      label: "Products",
       href: "#",
       children: [
         { label: "BNPL for Bills", href: "/dashboard/products#bnpl-bills" },
@@ -18,21 +18,21 @@ const Header = () => {
         { label: "LateFees", href: "/dashboard/products#latefees" },
         { label: "AutoFloat", href: "/dashboard/products#autofloat" },
         { label: "Paylaterr Travel", href: "/dashboard/products#travel" },
-      ]
+      ],
     },
-    { 
-      label: "Developers", 
+    {
+      label: "Developers",
       href: "#",
       children: [
         { label: "API Reference", href: "/developers/api-reference" },
         { label: "SDKs", href: "/developers/sdks" },
         { label: "Changelog", href: "/developers/changelog" },
         { label: "Status", href: "/developers/status" },
-      ]
+      ],
     },
     { label: "Pricing", href: "/pricing" },
-    { 
-      label: "Company", 
+    {
+      label: "Company",
       href: "#",
       children: [
         { label: "About", href: "/company/about" },
@@ -40,7 +40,7 @@ const Header = () => {
         { label: "Careers", href: "/company/careers" },
         { label: "Press", href: "/company/press" },
         { label: "Contact", href: "/company/contact" },
-      ]
+      ],
     },
   ];
 
@@ -48,7 +48,6 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl bg-background/80">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">P</span>
@@ -56,7 +55,6 @@ const Header = () => {
             <span className="text-xl font-semibold text-foreground">Paylaterr</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <div key={link.label} className="relative group">
@@ -92,7 +90,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Link to="/dashboard">
               <Button variant="ghost" size="sm">
@@ -104,7 +101,6 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -114,7 +110,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
           <div className="container mx-auto px-6 py-4 space-y-4">
@@ -162,6 +157,4 @@ const Header = () => {
       )}
     </header>
   );
-};
-
-export default Header;
+}

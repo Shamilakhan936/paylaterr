@@ -1,8 +1,8 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { DashboardSidebar } from "./DashboardSidebar";
+import { DashboardSidebar } from "../DashboardSidebar";
 import { Outlet } from "react-router-dom";
 
-const DashboardLayout = () => {
+export function DashboardLayout() {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -13,6 +13,4 @@ const DashboardLayout = () => {
       </div>
     </SidebarProvider>
   );
-};
-
-export default DashboardLayout;
+}

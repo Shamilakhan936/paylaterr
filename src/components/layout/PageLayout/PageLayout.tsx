@@ -1,12 +1,12 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import { Header } from "../Header";
+import { Footer } from "../Footer";
 
 interface PageLayoutProps {
   children: React.ReactNode;
   showFooter?: boolean;
 }
 
-const PageLayout = ({ children, showFooter = true }: PageLayoutProps) => {
+export function PageLayout({ children, showFooter = true }: PageLayoutProps) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -14,6 +14,4 @@ const PageLayout = ({ children, showFooter = true }: PageLayoutProps) => {
       {showFooter && <Footer />}
     </div>
   );
-};
-
-export default PageLayout;
+}

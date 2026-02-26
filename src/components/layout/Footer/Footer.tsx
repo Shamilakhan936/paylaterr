@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 
 const footerLinks = {
   Products: [
-    { label: "BNPL for Bills", href: "/dashboard/products#bnpl-bills" },
-    { label: "Spendnest", href: "/dashboard/products#spendnest" },
-    { label: "EarlyPay", href: "/dashboard/products#earlypay" },
-    { label: "Bill Rewards", href: "/dashboard/products#bill-rewards" },
-    { label: "LateFees", href: "/dashboard/products#latefees" },
-    { label: "AutoFloat", href: "/dashboard/products#autofloat" },
-    { label: "Paylaterr Travel", href: "/dashboard/products#travel" },
+    { label: "Payment Plans", href: "/dashboard/payment-plans" },
+    { label: "Account Linking", href: "/dashboard/account-linking" },
+    { label: "Risk Engine", href: "/dashboard/risk-engine" },
+    { label: "Analytics", href: "/dashboard/analytics" },
+    { label: "Webhooks", href: "/dashboard/webhooks" },
   ],
   Developers: [
     { label: "Documentation", href: "/developers/api-reference" },
@@ -33,21 +31,21 @@ const footerLinks = {
   ],
 };
 
-const Footer = () => {
+export function Footer() {
   return (
-    <footer className="border-t border-border py-16">
+    <footer className="py-16" style={{ borderTop: "1px solid #1E2939" }}>
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">P</span>
+              <div className="w-8 h-8 rounded-lg bg-[#2DD4BF] flex items-center justify-center">
+                <span className="text-white font-bold text-lg">P</span>
               </div>
               <span className="text-xl font-semibold text-foreground">Paylaterr</span>
             </Link>
-            <p className="text-sm text-muted-foreground mb-4">
-              The financial infrastructure for Buy Now, Pay Later.
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+              The financial infrastructure for Buy Now, Pay Later. Build seamless payment flows in
+              minutes.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -62,7 +60,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="font-semibold text-foreground mb-4">{category}</h4>
@@ -82,21 +79,19 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div
+          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{ borderTop: "1px solid #1E2939" }}
+        >
           <p className="text-sm text-muted-foreground">
             © 2024 Paylaterr, Inc. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="w-2 h-2 rounded-full bg-primary" />
-              All systems operational
-            </span>
-          </div>
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="w-2 h-2 rounded-full bg-green-500" />
+            All systems operational
+          </span>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

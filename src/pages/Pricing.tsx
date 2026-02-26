@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout";
+import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
@@ -58,22 +58,28 @@ const Pricing = () => {
   return (
     <PageLayout>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 bg-gradient-mesh">
-          <div className="container mx-auto px-6 text-center">
+        <section className="relative py-20 overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 50% 50%, #59168B33 0%, transparent 70%)",
+            }}
+          />
+          <div className="container mx-auto px-6 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Simple, Transparent Pricing
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-[#99A1AF] max-w-2xl mx-auto">
               Start free and scale as you grow. No hidden fees.
-            </p>
+            </p>  
           </div>
         </section>
 
         {/* Pricing Cards */}
-        <section className="py-16">
+        <section className="py-16 pt-0">
           <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8  mx-auto">
               {plans.map((plan) => (
                 <Card 
                   key={plan.name} 
@@ -86,20 +92,20 @@ const Pricing = () => {
                       Most Popular
                     </span>
                   )}
-                  <div className="text-center mb-8">
+                  <div className="mb-8">
                     <h3 className="text-xl font-semibold text-foreground mb-2">{plan.name}</h3>
-                    <div className="flex items-baseline justify-center gap-1">
+                    <div className="flex items-baseline gap-1">
                       <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                      <span className="text-muted-foreground">{plan.period}</span>
+                      <span className="text-[#99A1AF]">{plan.period}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
+                    <p className="text-sm text-[#99A1AF] mt-2">{plan.description}</p>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="text-muted-foreground">{feature}</span>
+                        <Check className="w-5 h-5 p-1 text-primary bg-[#2DD4BF1A]   rounded-full" />
+                        <span className="text-[#D1D5DC]">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -118,7 +124,7 @@ const Pricing = () => {
         </section>
 
         {/* FAQ */}
-        <section className="py-16 border-t border-border">
+        <section className="md:py-32 py-16">
           <div className="container mx-auto px-6 max-w-3xl">
             <h2 className="text-3xl font-bold text-foreground text-center mb-12">
               Frequently Asked Questions
@@ -132,7 +138,7 @@ const Pricing = () => {
               ].map((faq, i) => (
                 <div key={i} className="p-6 bg-card rounded-lg border border-border">
                   <h3 className="font-semibold text-foreground mb-2">{faq.q}</h3>
-                  <p className="text-muted-foreground">{faq.a}</p>
+                  <p className="text-[#99A1AF] text-sm">{faq.a}</p>
                 </div>
               ))}
             </div>

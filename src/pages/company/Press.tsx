@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout";
+import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Download, Calendar } from "lucide-react";
@@ -31,15 +31,15 @@ const Press = () => {
     <PageLayout>
       <div className="min-h-screen">
         {/* Hero */}
-        <section className="py-20 bg-gradient-mesh">
+        <section className="py-20 ">
           <div className="container mx-auto px-6 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Press & Media
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-[#99A1AF] max-w-2xl mx-auto mb-8">
               Latest news and announcements from Paylaterr
             </p>
-            <Button variant="outline">
+            <Button variant="outline" className="bg-[#151A21] border-[#364153] p-4">
               <Download className="w-4 h-4 mr-2" />
               Download Press Kit
             </Button>
@@ -54,14 +54,14 @@ const Press = () => {
               {releases.map((release, index) => (
                 <Card 
                   key={index} 
-                  className="p-6 bg-card border-border hover:border-primary/50 transition-colors cursor-pointer"
+                  className="p-6 bg-[#151A21] border-[#1E2939] hover:border-primary/50 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                  <div className="flex items-center gap-2 text-sm text-[#6A7282] mb-2">
                     <Calendar className="w-4 h-4" />
                     {release.date}
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{release.title}</h3>
-                  <p className="text-muted-foreground">{release.excerpt}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{release.title}</h3>
+                  <p className="text-[#99A1AF]">{release.excerpt}</p>
                 </Card>
               ))}
             </div>
@@ -69,13 +69,13 @@ const Press = () => {
         </section>
 
         {/* Media Contact */}
-        <section className="py-16 border-t border-border">
+        <section className="py-16 max-w-4xl mx-auto  border-t border-border ">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-2xl font-bold text-foreground mb-4">Media Inquiries</h2>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-[#99A1AF] mb-6">
               For press inquiries, please contact our media relations team.
             </p>
-            <a href="mailto:press@paylaterr.com" className="text-primary hover:underline">
+            <a href="mailto:press@paylaterr.com" className="text-[#2DD4BF] text-lg font-bold hover:underline">
               press@paylaterr.com
             </a>
           </div>

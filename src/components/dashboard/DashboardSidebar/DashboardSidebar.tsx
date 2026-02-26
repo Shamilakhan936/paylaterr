@@ -1,9 +1,9 @@
-import { 
-  LayoutDashboard, 
-  CreditCard, 
-  Link2, 
-  ShieldCheck, 
-  BarChart3, 
+import {
+  LayoutDashboard,
+  CreditCard,
+  Link2,
+  ShieldCheck,
+  BarChart3,
   Webhook,
   Settings,
   HelpCircle,
@@ -12,9 +12,9 @@ import {
   Key,
   Users,
   Activity,
-  Play
+  Play,
 } from "lucide-react";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/layout/NavLink";
 import {
   Sidebar,
   SidebarContent,
@@ -79,8 +79,8 @@ export function DashboardSidebar() {
               {mainItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
-                    <NavLink 
-                      to={item.url} 
+                    <NavLink
+                      to={item.url}
                       end={item.url === "/dashboard"}
                       className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                       activeClassName="bg-primary/10 text-primary"
@@ -104,8 +104,8 @@ export function DashboardSidebar() {
               {settingsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
-                    <NavLink 
-                      to={item.url} 
+                    <NavLink
+                      to={item.url}
                       className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                       activeClassName="bg-primary/10 text-primary"
                     >
@@ -122,7 +122,7 @@ export function DashboardSidebar() {
 
       <div className="p-2 border-t border-border">
         <SidebarTrigger className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
-          <ChevronLeft className={`w-4 h-4 transition-transform ${collapsed ? 'rotate-180' : ''}`} />
+          <ChevronLeft className={`w-4 h-4 transition-transform ${collapsed ? "rotate-180" : ""}`} />
           {!collapsed && <span className="text-sm">Collapse</span>}
         </SidebarTrigger>
       </div>

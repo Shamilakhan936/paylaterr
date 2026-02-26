@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout";
+import { PageLayout } from "@/components/layout/PageLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

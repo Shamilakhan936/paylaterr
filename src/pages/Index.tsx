@@ -1,12 +1,12 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import TrustedBy from "@/components/TrustedBy";
-import Features from "@/components/Features";
-import CodePreview from "@/components/CodePreview";
-import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { Hero } from "@/components/landing/Hero";
+import { TrustedBy } from "@/components/landing/TrustedBy";
+import { Features } from "@/components/landing/Features";
+import { CodePreview } from "@/components/landing/CodePreview";
+import { CTA } from "@/components/landing/CTA";
 
-const Index = () => {
+export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -20,6 +20,4 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
-
-export default Index;
+}

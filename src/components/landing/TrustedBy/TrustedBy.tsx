@@ -7,14 +7,14 @@ const companies = [
   { name: "Afterpay", width: "110px" },
 ];
 
-const TrustedBy = () => {
+export function TrustedBy() {
   return (
     <section className="py-20 border-y border-border/50">
       <div className="container mx-auto px-6">
-        <p className="text-center text-sm text-muted-foreground mb-10 uppercase tracking-wider">
+        <p className="text-center text-sm text-[#6A7282] mb-10 uppercase tracking-wider">
           Trusted by leading companies worldwide
         </p>
-        
+
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
           {companies.map((company) => (
             <div
@@ -23,7 +23,7 @@ const TrustedBy = () => {
               style={{ width: company.width }}
             >
               <div className="h-8 flex items-center justify-center">
-                <span className="text-xl font-semibold text-foreground tracking-tight">
+                <span className="text-xl font-bold text-foreground tracking-tight">
                   {company.name}
                 </span>
               </div>
@@ -33,6 +33,4 @@ const TrustedBy = () => {
       </div>
     </section>
   );
-};
-
-export default TrustedBy;
+}

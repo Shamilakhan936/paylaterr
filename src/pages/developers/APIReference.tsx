@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout";
+import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Copy, ChevronRight, Search } from "lucide-react";
