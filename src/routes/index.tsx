@@ -83,7 +83,7 @@ export function AppRoutes() {
         <Route path="/legal/security" element={<Security />} />
         <Route path="/legal/compliance" element={<Compliance />} />
 
-        <Route
+        {/* <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -108,7 +108,7 @@ export function AppRoutes() {
           <Route path="widgets" element={<DashboardWidgets />} />
           <Route path="audit" element={<DashboardAuditTrail />} />
           <Route path="usage" element={<DashboardUsage />} />
-        </Route>
+        </Route> */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>
