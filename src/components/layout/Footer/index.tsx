@@ -90,12 +90,7 @@ export function Footer() {
           <p className="text-xs sm:text-sm text-muted-foreground order-last sm:order-first">
             © 2024 Rail Layer, Inc. All rights reserved.
           </p>
-          <div className="flex items-center justify-center sm:justify-end gap-2 sm:gap-4">
-            <span className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary shrink-0" aria-hidden />
-              All systems operational
-            </span>
-          </div>
+       
         </div>
       </div>
     </footer>

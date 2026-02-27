@@ -23,10 +23,7 @@ export function Hero() {
 
       <div className="container mx-auto py-12 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm mb-6 sm:mb-8 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Now with instant account verification</span>
-          </div>
+          
 
           <h1
             className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in"
