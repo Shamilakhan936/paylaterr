@@ -11,6 +11,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface FAQItem {
   question: string;
@@ -107,6 +108,8 @@ const FAQ = () => {
   const [search, setSearch] = useState("");
   const [openItems, setOpenItems] = useState<Set<number>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
 
   const toggleItem = (index: number) => {
     const newOpen = new Set(openItems);
@@ -229,7 +232,7 @@ const FAQ = () => {
                 <Link to="/company/contact">Contact Us</Link>
               </Button>
               <Button variant="hero" asChild>
-                <Link to="/dashboard/help">
+                <Link to={isAuthenticated ? "/dashboard/help" : "/partner-signup"}>
                   Visit Help Center
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>

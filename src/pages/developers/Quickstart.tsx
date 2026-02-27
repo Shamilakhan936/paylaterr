@@ -15,6 +15,7 @@ import {
   Clock
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const steps = [
   {
@@ -98,6 +99,8 @@ const features = [
 
 const Quickstart = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
 
   const copyCode = (code: string, index: number) => {
     navigator.clipboard.writeText(code);
@@ -211,10 +214,14 @@ const Quickstart = () => {
                 <Link to="/developers/api-reference">Full API Reference</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link to="/dashboard/products">Browse Products</Link>
+                <Link to={isAuthenticated ? "/dashboard/products" : "/partner-signup"}>
+                  Browse Products
+                </Link>
               </Button>
               <Button variant="hero" asChild>
-                <Link to="/dashboard">Go to Dashboard</Link>
+                <Link to={isAuthenticated ? "/dashboard" : "/partner-signup"}>
+                  Go to Dashboard
+                </Link>
               </Button>
             </div>
           </div>

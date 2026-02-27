@@ -17,6 +17,10 @@ import {
   Paintbrush,
   Shield,
   Gauge,
+  Layers,
+  AlertTriangle,
+  Bell,
+  Rocket,
 } from "lucide-react";
 import { NavLink } from "@/components/landing/NavLink";
 import raillayerLogo from "@/assets/raillayer-logo.png";
@@ -37,6 +41,7 @@ import {
 
 const mainItems = [
   { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Getting Started", url: "/dashboard/onboarding", icon: Rocket },
   { title: "Products", url: "/dashboard/products", icon: Package },
   { title: "API Keys", url: "/dashboard/api-keys", icon: Key },
   { title: "API Playground", url: "/dashboard/playground", icon: Play },
@@ -49,6 +54,9 @@ const mainItems = [
   { title: "Widgets", url: "/dashboard/widgets", icon: Paintbrush },
   { title: "Usage", url: "/dashboard/usage", icon: Gauge },
   { title: "Audit Trail", url: "/dashboard/audit", icon: Shield },
+  { title: "Orchestration", url: "/dashboard/orchestration", icon: Layers },
+  { title: "Disputes", url: "/dashboard/disputes", icon: AlertTriangle },
+  { title: "Notifications", url: "/dashboard/notifications", icon: Bell },
   { title: "Team", url: "/dashboard/team", icon: Users },
 ];
 

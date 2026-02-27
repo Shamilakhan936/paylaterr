@@ -19,11 +19,13 @@ import {
   Clock,
   ArrowRight,
   RefreshCw,
-  Loader2
+  Loader2,
+  Download
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useQuery } from "@tanstack/react-query";
+import { exportToCsv } from "@/lib/exportCsv";
 
 interface LogEntry {
   id: string;
@@ -103,10 +105,16 @@ const ActivityLogs = () => {
           <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Activity Logs</h1>
           <p className="text-muted-foreground mt-1">Monitor your API requests in real-time</p>
         </div>
-        <Button variant="outline" className="mt-4 lg:mt-0" onClick={() => refetch()}>
-          <RefreshCw className="w-4 h-4 mr-2" />
-          Refresh
-        </Button>
+        <div className="flex gap-2 mt-4 lg:mt-0">
+          <Button variant="outline" onClick={() => exportToCsv("activity-logs", filteredLogs)}>
+            <Download className="w-4 h-4 mr-2" />
+            Export CSV
+          </Button>
+          <Button variant="outline" onClick={() => refetch()}>
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
       </div>
       <div className="grid sm:grid-cols-4 gap-4 mb-8">
         <Card className="p-4 bg-card border-border flex items-center gap-4">

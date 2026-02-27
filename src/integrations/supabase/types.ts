@@ -122,6 +122,347 @@ export type Database = {
         }
         Relationships: []
       }
+      autopay_configs: {
+        Row: {
+          account_last4: string | null
+          created_at: string
+          enabled: boolean
+          id: string
+          max_retries: number
+          payment_method: string
+          retry_on_failure: boolean
+          schedule_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_last4?: string | null
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          max_retries?: number
+          payment_method?: string
+          retry_on_failure?: boolean
+          schedule_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_last4?: string | null
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          max_retries?: number
+          payment_method?: string
+          retry_on_failure?: boolean
+          schedule_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "autopay_configs_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      biller_disbursements: {
+        Row: {
+          amount: number
+          biller_account: string | null
+          biller_name: string
+          created_at: string
+          disbursed_at: string | null
+          id: string
+          reference_number: string | null
+          schedule_id: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          biller_account?: string | null
+          biller_name: string
+          created_at?: string
+          disbursed_at?: string | null
+          id?: string
+          reference_number?: string | null
+          schedule_id?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          biller_account?: string | null
+          biller_name?: string
+          created_at?: string
+          disbursed_at?: string | null
+          id?: string
+          reference_number?: string | null
+          schedule_id?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "biller_disbursements_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      disputes: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          installment_item_id: string | null
+          priority: string
+          reason: string
+          resolution_note: string | null
+          resolved_at: string | null
+          schedule_id: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          installment_item_id?: string | null
+          priority?: string
+          reason: string
+          resolution_note?: string | null
+          resolved_at?: string | null
+          schedule_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          installment_item_id?: string | null
+          priority?: string
+          reason?: string
+          resolution_note?: string | null
+          resolved_at?: string | null
+          schedule_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disputes_installment_item_id_fkey"
+            columns: ["installment_item_id"]
+            isOneToOne: false
+            referencedRelation: "installment_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "disputes_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      installment_items: {
+        Row: {
+          amount: number
+          created_at: string
+          due_date: string
+          id: string
+          installment_number: number
+          paid_at: string | null
+          schedule_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          due_date: string
+          id?: string
+          installment_number: number
+          paid_at?: string | null
+          schedule_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          due_date?: string
+          id?: string
+          installment_number?: number
+          paid_at?: string | null
+          schedule_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "installment_items_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      installment_schedules: {
+        Row: {
+          created_at: string
+          currency: string
+          customer_name: string
+          frequency: string
+          id: string
+          installment_count: number
+          plan_name: string
+          product: string
+          start_date: string
+          status: string
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          customer_name: string
+          frequency?: string
+          id?: string
+          installment_count?: number
+          plan_name: string
+          product?: string
+          start_date?: string
+          status?: string
+          total_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          customer_name?: string
+          frequency?: string
+          id?: string
+          installment_count?: number
+          plan_name?: string
+          product?: string
+          start_date?: string
+          status?: string
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      late_fee_rules: {
+        Row: {
+          compound: boolean
+          created_at: string
+          enabled: boolean
+          fee_amount: number
+          fee_percentage: number
+          fee_type: string
+          grace_period_days: number
+          id: string
+          max_fee: number | null
+          product: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          compound?: boolean
+          created_at?: string
+          enabled?: boolean
+          fee_amount?: number
+          fee_percentage?: number
+          fee_type?: string
+          grace_period_days?: number
+          id?: string
+          max_fee?: number | null
+          product?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          compound?: boolean
+          created_at?: string
+          enabled?: boolean
+          fee_amount?: number
+          fee_percentage?: number
+          fee_type?: string
+          grace_period_days?: number
+          id?: string
+          max_fee?: number | null
+          product?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ledger_entries: {
+        Row: {
+          balance_after: number
+          created_at: string
+          credit: number
+          debit: number
+          description: string | null
+          entry_type: string
+          id: string
+          reference_id: string | null
+          schedule_id: string | null
+          user_id: string
+        }
+        Insert: {
+          balance_after?: number
+          created_at?: string
+          credit?: number
+          debit?: number
+          description?: string | null
+          entry_type: string
+          id?: string
+          reference_id?: string | null
+          schedule_id?: string | null
+          user_id: string
+        }
+        Update: {
+          balance_after?: number
+          created_at?: string
+          credit?: number
+          debit?: number
+          description?: string | null
+          entry_type?: string
+          id?: string
+          reference_id?: string | null
+          schedule_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       linked_accounts: {
         Row: {
           account_label: string | null
@@ -160,6 +501,101 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      notification_preferences: {
+        Row: {
+          created_at: string
+          dispute_updates: boolean
+          email_enabled: boolean
+          id: string
+          in_app_enabled: boolean
+          overdue_alerts: boolean
+          payment_reminders: boolean
+          quiet_hours_end: string | null
+          quiet_hours_start: string | null
+          sms_enabled: boolean
+          system_announcements: boolean
+          updated_at: string
+          user_id: string
+          weekly_digest: boolean
+        }
+        Insert: {
+          created_at?: string
+          dispute_updates?: boolean
+          email_enabled?: boolean
+          id?: string
+          in_app_enabled?: boolean
+          overdue_alerts?: boolean
+          payment_reminders?: boolean
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          sms_enabled?: boolean
+          system_announcements?: boolean
+          updated_at?: string
+          user_id: string
+          weekly_digest?: boolean
+        }
+        Update: {
+          created_at?: string
+          dispute_updates?: boolean
+          email_enabled?: boolean
+          id?: string
+          in_app_enabled?: boolean
+          overdue_alerts?: boolean
+          payment_reminders?: boolean
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          sms_enabled?: boolean
+          system_announcements?: boolean
+          updated_at?: string
+          user_id?: string
+          weekly_digest?: boolean
+        }
+        Relationships: []
+      }
+      orchestration_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          id: string
+          message: string
+          read: boolean
+          schedule_id: string | null
+          severity: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          id?: string
+          message: string
+          read?: boolean
+          schedule_id?: string | null
+          severity?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          schedule_id?: string | null
+          severity?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orchestration_alerts_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       payment_plans: {
         Row: {
@@ -202,6 +638,47 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      payment_reminders: {
+        Row: {
+          created_at: string
+          days_before: number
+          enabled: boolean
+          id: string
+          reminder_type: string
+          schedule_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          days_before?: number
+          enabled?: boolean
+          id?: string
+          reminder_type?: string
+          schedule_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          days_before?: number
+          enabled?: boolean
+          id?: string
+          reminder_type?: string
+          schedule_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_reminders_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "installment_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

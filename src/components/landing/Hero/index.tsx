@@ -23,7 +23,7 @@ export function Hero() {
 
       <div className="container mx-auto py-12 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          
+         
 
           <h1
             className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in"

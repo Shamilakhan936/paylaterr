@@ -17,11 +17,17 @@ const values = [
 ];
 
 const team = [
-  { name: "Akeem Egbeyemi", role: "CEO & Co-founder", bio: "Ex-Amazon", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Akeem" },
-  { name: "Rose Russell", role: "CTO & Co-founder", bio: "Ex-Sketcher", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rose" },
-  { name: "Muhammed Sheik", role: "VP Engineering", bio: "Ex-Microsoft", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Muhammed" },
-  { name: "David Kim", role: "VP Product", bio: "Former PM at Square", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David" },
+  { name: "Akeem Egbeyemi", role: "CEO & Co-founder", bio: "Ex-Amazon" },
+  { name: "Rose Russell", role: "CTO & Co-founder", bio: "Ex-Sketcher" },
+  { name: "Muhammed Sheik", role: "VP Engineering", bio: "Ex-Microsoft" },
 ];
+
+function getInitials(name: string) {
+  const parts = name.trim().split(/\s+/);
+  const first = parts[0]?.[0] ?? "";
+  const last = parts[parts.length - 1]?.[0] ?? "";
+  return (first + last).toUpperCase();
+}
 
 export default function About() {
   return (
@@ -91,14 +97,15 @@ export default function About() {
         <section className="py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12">Leadership</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
               {team.map((member) => (
                 <Card key={member.name} className="p-4 sm:p-6 bg-card border-border text-center">
-                  <img
-                    src={member.avatar}
-                    alt={member.name}
-                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover mx-auto mb-3 sm:mb-4 border-2 border-border"
-                  />
+                  <div
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 border-2 border-border mx-auto mb-3 sm:mb-4 flex items-center justify-center text-primary font-semibold text-lg sm:text-xl"
+                    aria-hidden
+                  >
+                    {getInitials(member.name)}
+                  </div>
                   <h3 className="font-semibold text-foreground text-sm sm:text-base">{member.name}</h3>
                   <p className="text-xs sm:text-sm text-primary">{member.role}</p>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-2">{member.bio}</p>

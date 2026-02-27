@@ -34,6 +34,10 @@ const DashboardHelp = lazy(() => import("@/pages/dashboard/Help"));
 const DashboardWidgets = lazy(() => import("@/pages/dashboard/Widgets"));
 const DashboardAuditTrail = lazy(() => import("@/pages/dashboard/AuditTrail"));
 const DashboardUsage = lazy(() => import("@/pages/dashboard/UsageMetering"));
+const DashboardOrchestration = lazy(() => import("@/pages/dashboard/InstallmentOrchestration"));
+const DashboardDisputes = lazy(() => import("@/pages/dashboard/Disputes"));
+const DashboardNotificationPreferences = lazy(() => import("@/pages/dashboard/NotificationPreferences"));
+const DashboardOnboarding = lazy(() => import("@/pages/dashboard/Onboarding"));
 
 const APIReference = lazy(() => import("@/pages/developers/APIReference"));
 const SDKs = lazy(() => import("@/pages/developers/SDKs"));
@@ -83,7 +87,7 @@ export function AppRoutes() {
         <Route path="/legal/security" element={<Security />} />
         <Route path="/legal/compliance" element={<Compliance />} />
 
-        {/* <Route
+        <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -108,7 +112,11 @@ export function AppRoutes() {
           <Route path="widgets" element={<DashboardWidgets />} />
           <Route path="audit" element={<DashboardAuditTrail />} />
           <Route path="usage" element={<DashboardUsage />} />
-        </Route> */}
+          <Route path="orchestration" element={<DashboardOrchestration />} />
+          <Route path="disputes" element={<DashboardDisputes />} />
+          <Route path="notifications" element={<DashboardNotificationPreferences />} />
+          <Route path="onboarding" element={<DashboardOnboarding />} />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>

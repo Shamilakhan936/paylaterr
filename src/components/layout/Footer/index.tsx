@@ -1,6 +1,7 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 import raillayerLogo from "@/assets/raillayer-logo.png";
+import { useAuth } from "@/contexts/AuthContext";
 
 const footerLinks = {
   Products: [
@@ -42,6 +43,9 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
+
   return (
     <footer className="border-t border-border py-10 sm:py-12 md:py-16">
       <div className="container mx-auto px-4 sm:px-6">
@@ -71,16 +75,23 @@ export function Footer() {
             <div key={category}>
               <h4 className="font-semibold text-foreground text-sm sm:text-base mb-2 sm:mb-4">{category}</h4>
               <ul className="space-y-1.5 sm:space-y-2">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors py-0.5 block touch-manipulation"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const target =
+                    !isAuthenticated && link.href.startsWith("/dashboard")
+                      ? "/partner-signup"
+                      : link.href;
+
+                  return (
+                    <li key={link.label}>
+                      <Link
+                        to={target}
+                        className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors py-0.5 block touch-manipulation"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

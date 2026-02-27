@@ -8,6 +8,7 @@ type AuditAction =
   | "widget.configured" | "widget.toggled"
   | "settings.updated" | "password.changed"
   | "team.invited" | "team.role_changed"
+  | "dispute.created" | "dispute.updated"
   | "login" | "logout";
 
 export function useAuditLog() {

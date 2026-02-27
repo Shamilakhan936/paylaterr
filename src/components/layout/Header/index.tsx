@@ -3,6 +3,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import raillayerLogo from "@/assets/raillayer-logo.png";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
   {
@@ -50,6 +51,8 @@ const navLinks = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
 
   const toggleDropdown = (label: string) => {
     setOpenDropdown((prev) => (prev === label ? null : label));
@@ -75,15 +78,21 @@ export function Header() {
                     </button>
                     <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                       <div className="bg-card border border-border rounded-lg shadow-lg py-2 min-w-[180px]">
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.label}
-                            to={child.href}
-                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
+                        {link.children.map((child) => {
+                          const target =
+                            child.href.startsWith("/dashboard") && !isAuthenticated
+                              ? "/partner-signup"
+                              : child.href;
+                          return (
+                            <Link
+                              key={child.label}
+                              to={target}
+                              className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            >
+                              {child.label}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </>
@@ -106,7 +115,7 @@ export function Header() {
               </Button>
             </Link>
             <Button variant="default" size="sm" asChild>
-              <Link to="/dashboard/api-keys">Get API Keys</Link>
+              <Link to={isAuthenticated ? "/dashboard/api-keys" : "/partner-signup"}>Get API Keys</Link>
             </Button>
             <Button variant="default" size="sm" asChild>
               <Link to="/partner-signup">Get Started</Link>
@@ -185,7 +194,12 @@ export function Header() {
                 </Button>
               </Link>
               <Button variant="outline" className="w-full" size="sm" asChild>
-                <Link to="/dashboard/api-keys" onClick={() => setIsMenuOpen(false)}>Get API Keys</Link>
+                <Link
+                  to={isAuthenticated ? "/dashboard/api-keys" : "/partner-signup"}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Get API Keys
+                </Link>
               </Button>
               <Button variant="default" className="w-full" size="sm" asChild>
                 <Link to="/partner-signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
