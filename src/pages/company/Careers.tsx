@@ -38,7 +38,7 @@ const Careers = () => {
         <section className="md:py-16 py-10 border-b border-border">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-foreground text-center mb-12">Why Rail Layer?</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl  mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl  mx-auto">
               {benefits.map((benefit) => (
                 <div key={benefit} className="flex items-center gap-2 text-muted-foreground">
                   <span className="w-2 h-2 rounded-full bg-primary" />
