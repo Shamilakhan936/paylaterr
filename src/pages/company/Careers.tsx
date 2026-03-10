@@ -4,12 +4,12 @@ import { Card } from "@/components/ui/card";
 import { MapPin, Briefcase, ArrowRight } from "lucide-react";
 
 const openings = [
-  { title: "Senior Backend Engineer", team: "Engineering", location: "San Francisco / Remote", type: "Full-time" },
-  { title: "Product Designer", team: "Design", location: "San Francisco / Remote", type: "Full-time" },
-  { title: "DevOps Engineer", team: "Infrastructure", location: "San Francisco / Remote", type: "Full-time" },
-  { title: "Account Executive", team: "Sales", location: "San Francisco / Remote", type: "Full-time" },
-  { title: "Machine Learning Engineer", team: "Risk", location: "San Francisco / Remote", type: "Full-time" },
-  { title: "Technical Writer", team: "Developer Experience", location: "San Francisco / Remote", type: "Full-time" },
+  { title: "Senior Backend Engineer", team: "Engineering", location: "Los Angeles / Remote", type: "Full-time" },
+  { title: "Product Designer", team: "Design", location: "Los Angeles / Remote", type: "Full-time" },
+  { title: "DevOps Engineer", team: "Infrastructure", location: "Los Angeles / Remote", type: "Full-time" },
+  { title: "Account Executive", team: "Sales", location: "Los Angeles / Remote", type: "Full-time" },
+  { title: "Machine Learning Engineer", team: "Risk", location: "Los Angeles / Remote", type: "Full-time" },
+  { title: "Technical Writer", team: "Developer Experience", location: "Los Angeles / Remote", type: "Full-time" },
 ];
 
 const benefits = [
