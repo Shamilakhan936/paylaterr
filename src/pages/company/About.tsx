@@ -5,7 +5,7 @@ import { Users, Globe, Zap, Heart } from "lucide-react";
 
 const stats = [
   { value: "2023", label: "Founded" },
-  { value: "250+", label: "Employees" },
+  { value: "50+", label: "Employees" },
   { value: "40+", label: "Countries" },
 ];
 
@@ -17,9 +17,8 @@ const values = [
 ];
 
 const team = [
-  { name: "Akeem Egbeyemi", role: "CEO & Co-founder", bio: "Ex-Amazon" },
-  { name: "Rose Russell", role: "CTO & Co-founder", bio: "Ex-Sketcher" },
-  { name: "Muhammed Sheik", role: "VP Engineering", bio: "Ex-Microsoft" },
+  { name: "Akeem Egbeyemi", role: "CEO-CTO & Co-founder", bio: "Ex-Amazon" },
+  { name: "Rose Russell", role: "Co-founder", bio: "Ex-Sketcher" },
 ];
 
 function getInitials(name: string) {
@@ -97,7 +96,7 @@ export default function About() {
         <section className="py-16 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-8 sm:mb-12">Leadership</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
               {team.map((member) => (
                 <Card key={member.name} className="p-4 sm:p-6 bg-card border-border text-center">
                   <div
