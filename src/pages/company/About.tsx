@@ -18,7 +18,7 @@ const values = [
 
 const team = [
   { name: "Akeem Egbeyemi", role: "CEO-CTO & Co-founder", bio: "Ex-Amazon" },
-  { name: "Rose Russell", role: "Co-founder", bio: "Ex-Sketcher" },
+  { name: "Kason Egbeyemi", role: "Co-founder", bio: "Ex-Sketcher" },
 ];
 
 function getInitials(name: string) {
