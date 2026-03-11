@@ -99,7 +99,7 @@ export function Footer() {
 
         <div className="pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
           <p className="text-xs sm:text-sm text-muted-foreground order-last sm:order-first">
-            © 2024 Rail Layer, Inc. All rights reserved.
+            ©2023-2026 RailLayerr is a subsidiary of PayLaterr Inc.
           </p>
        
         </div>
