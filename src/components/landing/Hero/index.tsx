@@ -26,11 +26,11 @@ export function Hero() {
          
 
           <h1
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-[75px] font-bold leading-tight mb-4 sm:mb-6 animate-fade-in"
             style={{ animationDelay: "0.1s" }}
           >
             The financial infrastructure for{" "}
-            <span className="text-gradient">Buy Now, Pay Later</span>
+            <span className="text-gradient">Bill Now, Pay Later</span>
           </h1>
 
           <p
